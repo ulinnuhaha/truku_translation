@@ -16,7 +16,6 @@ def get_args():
 def main():
 
     config=get_args()
-    #model_name='nllb-200-distilled-600M_tr_ch'
     model = AutoModelForSeq2SeqLM.from_pretrained(config.model_name_or_path)
     tokenizer = AutoTokenizer.from_pretrained(config.model_name_or_path)
 
