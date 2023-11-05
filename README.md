@@ -7,7 +7,7 @@ To perform the fine-tuning process of LLMs to create the translation model betwe
 python model_train.py \
   --model_checkpoint facebook/nllb-200-distilled-600M \
   --cache_dir ./pretrained_model \
-  --dataset ./dataset
+  --data_dir ./dataset
 ```
 # Run the simple translation model inference
 To perform the translation model with a specific pre-trained model, you can run the `run_trans.py` script as the following command:
