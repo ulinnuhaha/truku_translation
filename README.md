@@ -5,7 +5,7 @@ This is a repository for a translation model between Truku and Chinese languages
 To perform the fine-tuning process of LLMs to create the translation model between Truku and Chinese languages, you can run the `model_train.py` script as the following command:
 ```bash
 python model_train.py \
-  --model_checkpoint facebook/nllb-200-distilled-600M\
+  --model_checkpoint facebook/nllb-200-distilled-600M \
   --cache_dir ./pretrained_model \
   --dataset ./dataset
 ```
