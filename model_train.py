@@ -27,12 +27,6 @@ from transformers import (
     EarlyStoppingCallback
 )
 
-seed=1
-random.seed(seed)
-np.random.seed(seed)
-torch.manual_seed(seed)
-torch.cuda.manual_seed_all(seed)
-
 def DataTrainingArguments():
     parser = argparse.ArgumentParser()
     parser.add_argument('--model_checkpoint', 
@@ -91,8 +85,7 @@ def main():
     sacrebleu_score = evaluate.load("sacrebleu")
     chrf_score = evaluate.load("chrf")
     
-    # # Fine tuning pre-trained model for Bilingual translation
-    
+    # Load the tokenizer and model from pre-trained LLMs
     tokenizer = AutoTokenizer.from_pretrained(data_train_args.model_checkpoint)
     model_name = data_train_args.model_checkpoint.split("/")[-1] 
     
