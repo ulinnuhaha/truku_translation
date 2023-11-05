@@ -33,7 +33,7 @@ def DataTrainingArguments():
         type=str, required=True, help='Load a LLM as model checkpoint for translation')
     parser.add_argument('--cache_dir', 
         type=str, required=True, help='Directory for saving the pre-trained translation model')
-    parser.add_argument('--dataset', 
+    parser.add_argument('--data_dir', 
         type=str, required=True, help='Directory of the dataset files')
     args = parser.parse_args()
     return args
