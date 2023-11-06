@@ -5,3 +5,5 @@ Please make sure that the following dataset are already placed in this directory
 * `字根句型辭典.xlsx`
 * `族語E樂園.xlsx`
 * `聖經新舊約.xlsx`
+
+Then, run the `preprocessing.py` script.
