@@ -39,8 +39,6 @@ def DataTrainingArguments():
 #create the configuration class
 @dataclass
 class Config:
-    #cache_dir: str = "./pretrained_model" # where the pre-trained translation model is saved
-    #data_dir: str = "./dataset"
     lang: str = "tr_ch"
     batch_size: int = 16
     num_workers: int = 4
