@@ -119,6 +119,7 @@ def main():
     
     output_dir = os.path.join(data_train_args.cache_dir, f"{model_name}_{config.lang}") # where the pre-trained translation model is saved
     
+    #The training arguments for the training session
     args = Seq2SeqTrainingArguments(
         output_dir=output_dir,
         evaluation_strategy="steps",
@@ -140,7 +141,7 @@ def main():
         # https://discuss.huggingface.co/t/mixed-precision-for-bfloat16-pretrained-models/5315
         fp16=False
     )
-    
+    # evalution metrics computation
     def compute_metrics(eval_pred):
         """
         Compute rouge and bleu metrics for seq2seq model generated prediction.
