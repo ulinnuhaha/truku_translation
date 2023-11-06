@@ -32,6 +32,7 @@ def DataTrainingArguments():
         type=str, required=True, help='Directory for saving the pre-trained translation model')
     parser.add_argument('--trans_direction', 
         type=str, required=True, help='Translation direction, tr2ch or ch2tr')
+        # tr2ch: Truku to Chinese & ch2tr: Chinese to Truku
     args = parser.parse_args()
     return args
 
