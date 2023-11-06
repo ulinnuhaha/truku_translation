@@ -59,7 +59,7 @@ def main():
     config = Config()
     #Load the dataset from tsv files
     data_file = {}
-    for split in ["train", "val", "test"]:
+    for split in ["train", "val"]:
         output_path = os.path.join(data_train_args.data_dir, f"{split}.tsv")
         data_file[split] = [output_path]
     
