@@ -66,7 +66,7 @@ def main():
     
     model_name = data_test_args.pretrained_model.split("/")[-1] 
         
-    if os.path.isdir(pretrained_model_trans): #load the pre-trained translation model if available
+    if os.path.isdir(model_name): #load the pre-trained translation model if available
         model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
     else:
         print("pre-trained data not found")
