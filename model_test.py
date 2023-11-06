@@ -16,7 +16,7 @@ from transformers import (
     Seq2SeqTrainer,
 )
 
-def DataTrainingArguments():
+def DataTestingArguments():
     parser = argparse.ArgumentParser()
     parser.add_argument('--pretrained_model', 
         type=str, required=True, help='Load a LLM as model checkpoint for translation')
@@ -40,7 +40,7 @@ class Config:
         torch.cuda.manual_seed_all(self.seed)
 
 def main():
-    data_train_args=DataTrainingArguments()
+    data_train_args=DataTestingArguments()
     config = Config()
     # Load the testing data from tsv files
     # Both Truku to Chinese data or Chinese to Truku data
@@ -62,7 +62,7 @@ def main():
     sacrebleu_score = evaluate.load("sacrebleu")
     chrf_score = evaluate.load("chrf")
     
-    # Load the tokenizer and model from pre-trained LLMs
+    # Load the tokenizer and model from pre-trained translation
     tokenizer = AutoTokenizer.from_pretrained(data_train_args.pretrained_model)
     model_name = data_train_args.pretrained_model.split("/")[-1] 
     
@@ -99,7 +99,7 @@ def main():
         batched=True,
         remove_columns=dataset_dict["train"].column_names
     )
-
+    # evalution metrics computation
     def compute_metrics(eval_pred):
         """
         Compute rouge and bleu metrics for seq2seq model generated prediction.
@@ -139,7 +139,7 @@ def main():
         compute_metrics=compute_metrics,
         )
     
-    # perform the training process
+    # perform the testing process
     print('+++-----Testing stage for Truku to Chinese-----+++')
     pred_t2c=trainer.predict(dataset_dict_tokenized["test_tru2chi"])
     print(pred_t2c)
