@@ -22,7 +22,7 @@ def get_data(file,direct):
 
 # Create bilingual dataset for translation
 def create_bitext_data(direct):
-  #direct='chi2tr'
+  
     t1=get_data('其他來源',direct)
     t2=get_data('字根句型辭典',direct)
     t3=get_data('族語E樂園',direct)
