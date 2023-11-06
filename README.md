@@ -23,6 +23,7 @@ We utilize different evaluation metrics in the testing stage. For Truku➝Chines
 * BLEU
 * BERTScore
 * chrF
+
 While, for Truku➝Chinese translation, we exploit:
 * BLEU
 * BERTScore
