@@ -43,8 +43,8 @@ val = pd.concat([tc_val, ct_val])
 val = val.sample(frac=1) #shuffle the data
 
 #Save the data to tsv
-train.to_csv(config.data_dir+'/'+'train.tsv', sep="\t", index=False,header=False)
-val.to_csv(config.data_dir+'/'+'val.tsv', sep="\t", index=False,header=False)
+train.to_csv('train.tsv', sep="\t", index=False,header=False)
+val.to_csv('val.tsv', sep="\t", index=False,header=False)
 #We set the testing data in two files since the evaluation metrics for Chinese to Truku & Truku to Chinese is distinct
-tc_test.to_csv(config.data_dir+'/'+'test_tru2chi.tsv', sep="\t", index=False,header=False) #testing data for Chinese to Truku translation
-ct_test.to_csv(config.data_dir+'/'+'test_chi2tru.tsv', sep="\t", index=False,header=False) #testing data for Truku to Chinese translation
+tc_test.to_csv('test_tru2chi.tsv', sep="\t", index=False,header=False) #testing data for Chinese to Truku translation
+ct_test.to_csv('test_chi2tru.tsv', sep="\t", index=False,header=False) #testing data for Truku to Chinese translation
