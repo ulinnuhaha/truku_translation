@@ -19,7 +19,7 @@ python model_test.py \
   --model_name_or_path ./pretrained_model/nllb_tr_ch \
   --data_dir ./dataset
 ```
-We utilize different evaluation metrics in the testing stage. For Truku➝Chinese translation, we exploit:
+We take different evaluation metrics in the testing stage. For Truku➝Chinese translation, we exploit:
 * BLEU
 * BERTScore
 * chrF
