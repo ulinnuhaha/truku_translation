@@ -1,4 +1,4 @@
-![image](https://github.com/ulinnuhaha/truku_translation/assets/28559238/a9c6d25a-21c1-4b70-9fee-6bb045dbac86)# Bilingual translation of Chinese and Truku languages
+# Bilingual translation of Chinese and Truku languages
 This is a repository for a bidirectional translation model between Truku and Chinese languages (Truku ↔ Chinese) using LLMs. We build some pre-trained models from LLMs to perform bilingual translation between Truku and Chinese languages. In the experimental stage, we used three LLMs. They are:
 * mT5-small
 * NLLB-200's distilled 600M
