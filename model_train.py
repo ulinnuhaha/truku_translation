@@ -6,7 +6,6 @@ import torch
 import random
 import pandas as pd
 import evaluate
-import transformers
 import numpy as np
 import matplotlib.pyplot as plt
 import torch.nn as nn
@@ -18,7 +17,6 @@ from datasets import load_dataset
 from torch.utils.data import Dataset, DataLoader
 import argparse
 from transformers import (
-    AutoConfig,
     AutoTokenizer,
     AutoModelForSeq2SeqLM,
     DataCollatorForSeq2Seq,
