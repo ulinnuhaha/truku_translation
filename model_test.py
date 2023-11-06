@@ -19,7 +19,7 @@ from transformers import (
 
 def DataTestingArguments():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--pretrained_model', 
+    parser.add_argument('--model_name_or_path', 
         type=str, required=True, help='Load a LLM as model checkpoint for translation')
     parser.add_argument('--data_dir', 
         type=str, required=True, help='Directory of the dataset files')
@@ -65,7 +65,7 @@ def main():
     
     # Load the tokenizer and model from pre-trained translation
     
-    model_name = data_test_args.pretrained_model 
+    model_name = data_test_args.model_name_or_path 
         
     if os.path.isdir(model_name): #load the pre-trained translation model if available
         model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
