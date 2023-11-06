@@ -63,9 +63,8 @@ def main():
     chrf_score = evaluate.load("chrf")
     
     # Load the tokenizer and model from pre-trained translation
-    tokenizer = AutoTokenizer.from_pretrained(data_train_args.pretrained_model)
-    model_name = data_train_args.pretrained_model.split("/")[-1] 
     
+    model_name = data_train_args.pretrained_model.split("/")[-1] 
     pretrained_model_trans = os.path.join(
         f"{model_name}_{config.lang}"
     )
@@ -74,6 +73,7 @@ def main():
         model = AutoModelForSeq2SeqLM.from_pretrained(pretrained_model_trans)
     else:
         print("pre-trained data not found")
+    tokenizer = AutoTokenizer.from_pretrained(pretrained_model_trans)
 
     print("number of parameters:", model.num_parameters())
     def batch_tokenize_fn(examples):
