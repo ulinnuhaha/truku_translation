@@ -83,7 +83,7 @@ def main():
     
     # Load the tokenizer and model from pre-trained LLMs
     tokenizer = AutoTokenizer.from_pretrained(data_train_args.model_checkpoint)
-    model_name = data_train_args.model_checkpoint.split("/")[-1] 
+    model_name = data_train_args.model_checkpoint.split("/")[-1] #the name of pre-trained model
     
     fine_tuned_model_checkpoint = os.path.join(
         data_train_args.cache_dir,
@@ -122,7 +122,6 @@ def main():
         remove_columns=dataset_dict["train"].column_names
     )
     
-    model_name = data_train_args.model_checkpoint.split("/")[-1] #the name of pre-trained model
     output_dir = os.path.join(data_train_args.cache_dir, f"{model_name}_{config.lang}") # where the pre-trained translation model is saved
     
     args = Seq2SeqTrainingArguments(
