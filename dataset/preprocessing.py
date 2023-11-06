@@ -34,6 +34,7 @@ def create_bitext_data(direct):
     train, test = train_test_split(data_all,test_size=0.2,train_size=0.8,shuffle=True) #split for training and testing data
     train, val = train_test_split(train,test_size=0.2,train_size=0.8,shuffle=True) #split for training and validation data
     return train, test, val
+    
 # Create dataset: Chinese to Truku
 print('Starting to create: Chinese to Truku dataset')
 direct='chi2tr'
