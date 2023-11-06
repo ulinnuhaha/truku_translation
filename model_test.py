@@ -94,7 +94,7 @@ def main():
     dataset_dict_tokenized = dataset_dict.map(
         batch_tokenize_fn,
         batched=True,
-        remove_columns=dataset_dict["train"].column_names
+        remove_columns=dataset_dict["test_tru2chi"].column_names
     )
     # evalution metrics computation
     def compute_metrics(eval_pred):
