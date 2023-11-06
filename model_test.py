@@ -40,13 +40,13 @@ class Config:
         torch.cuda.manual_seed_all(self.seed)
 
 def main():
-    data_train_args=DataTestingArguments()
+    data_test_args=DataTestingArguments()
     config = Config()
     # Load the testing data from tsv files
     # Both Truku to Chinese data or Chinese to Truku data
     data_file = {}
     for split in ["test_tru2chi", "test_chi2tru"]:
-        output_path = os.path.join(data_train_args.data_dir, f"{split}.tsv")
+        output_path = os.path.join(data_test_args.data_dir, f"{split}.tsv")
         data_file[split] = [output_path]
     
     dataset_dict = load_dataset(
@@ -64,7 +64,7 @@ def main():
     
     # Load the tokenizer and model from pre-trained translation
     
-    model_name = data_train_args.pretrained_model.split("/")[-1] 
+    model_name = data_test_args.pretrained_model.split("/")[-1] 
         
     if os.path.isdir(pretrained_model_trans): #load the pre-trained translation model if available
         model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
