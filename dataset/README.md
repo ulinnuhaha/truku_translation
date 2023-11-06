@@ -1,4 +1,4 @@
-# Create translation of Chinese and Truku languages from raw data
+# Create translation dataset of Chinese and Truku languages from raw data
 This is a repository for creating bidirectional translation dataset between Truku and Chinese languages (Truku ↔ Chinese) with a preprocessing step.
 Please make sure that the following dataset are already placed in this directory:
 * `其他來源.xlsx`
