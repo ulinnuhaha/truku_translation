@@ -65,15 +65,12 @@ def main():
     # Load the tokenizer and model from pre-trained translation
     
     model_name = data_train_args.pretrained_model.split("/")[-1] 
-    pretrained_model_trans = os.path.join(
-        f"{model_name}_{config.lang}"
-    )
-    
+        
     if os.path.isdir(pretrained_model_trans): #load the pre-trained translation model if available
-        model = AutoModelForSeq2SeqLM.from_pretrained(pretrained_model_trans)
+        model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
     else:
         print("pre-trained data not found")
-    tokenizer = AutoTokenizer.from_pretrained(pretrained_model_trans)
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
 
     print("number of parameters:", model.num_parameters())
     def batch_tokenize_fn(examples):
