@@ -4,6 +4,7 @@ This is a repository for a bidirectional translation model between Truku and Chi
 * NLLB-200's distilled 600M
 * mBART-50
 
+For the one-directional translation model (Truku➝Chinese or Chinese➝Truku), please go to the `1-directional translation`.
 ## Run the training model to fine-tune LLMs for bilingual translation
 To perform the fine-tuning process of LLMs to create the translation model between Truku and Chinese languages, you can run the `model_train.py` script as the following command:
 ```bashmodel_train
