@@ -15,5 +15,5 @@ python mt5-standard.py \
   --train_file ./datasets/train_chi2tru.tsv \
   --eval_file ./datasets/val_chi2tru.tsv \
   --cache_dir ./1d_translation_model \
-  --trans_direction chi2tru
+  --trans_direction ch2tr
 ```
