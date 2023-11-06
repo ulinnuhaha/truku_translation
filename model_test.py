@@ -12,6 +12,7 @@ import argparse
 from transformers import (
     AutoTokenizer,
     AutoModelForSeq2SeqLM,
+    Seq2SeqTrainingArguments,
     DataCollatorForSeq2Seq,
     Seq2SeqTrainer,
 )
@@ -126,11 +127,15 @@ def main():
         result["sacrebleu"] = score["score"] #The higher the value, the better the translations
         result["chrf"] = chrf["score"]
         return {k: round(v, 4) for k, v in result.items()}
-        
+    
+    #The training arguments for the training session, can be ignored since we do not perform training session
+    args = Seq2SeqTrainingArguments(output_dir="./")
+    
     # Data collator used for seq2seq model
     data_collator = DataCollatorForSeq2Seq(tokenizer, model=model)
     trainer = Seq2SeqTrainer(
         model,
+        args,
         data_collator=data_collator,
         tokenizer=tokenizer,
         compute_metrics=compute_metrics,
