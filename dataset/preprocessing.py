@@ -30,12 +30,16 @@ def create_bitext_data(direct):
     train, val = train_test_split(train,test_size=0.2,train_size=0.8,shuffle=True) #split for training and validation data
     return train, test, val
 # Create dataset: Chinese to Truku
+print('Starting to create: Chinese to Truku dataset')
 direct='chi2tr'
 ct_train, ct_val, ct_test = create_bitext_data(direct)
+print('Successfully creating: Chinese to Truku dataset')
+
 # Create dataset: Truku to Chinese
+print('Starting to create: Truku to Chinese dataset')
 direct='tr2chi'
 tc_train, tc_val, tc_test = create_bitext_data(direct)
-
+print('Successfully creating: Truku to Chinese dataset')
 ## Group all data
 train = pd.concat([tc_train, ct_train])
 train = train.sample(frac=1) #shuffle the data
@@ -48,3 +52,4 @@ val.to_csv('val.tsv', sep="\t", index=False,header=False)
 #We set the testing data in two files since the evaluation metrics for Chinese to Truku & Truku to Chinese is distinct
 tc_test.to_csv('test_tru2chi.tsv', sep="\t", index=False,header=False) #testing data for Chinese to Truku translation
 ct_test.to_csv('test_chi2tru.tsv', sep="\t", index=False,header=False) #testing data for Truku to Chinese translation
+print('Successfully saving all dataset')
