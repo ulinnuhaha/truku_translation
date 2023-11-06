@@ -1,4 +1,4 @@
-# Bilingual translation of Chinese and Truku languages
+![image](https://github.com/ulinnuhaha/truku_translation/assets/28559238/a9c6d25a-21c1-4b70-9fee-6bb045dbac86)# Bilingual translation of Chinese and Truku languages
 This is a repository for a bidirectional translation model between Truku and Chinese languages (Truku ↔ Chinese) using LLMs. We build some pre-trained models from LLMs to perform bilingual translation between Truku and Chinese languages. In the experimental stage, we used three LLMs. They are:
 * mT5-small
 * NLLB-200's distilled 600M
@@ -19,7 +19,14 @@ python model_test.py \
   --model_name_or_path ./pretrained_model/nllb_tr_ch \
   --data_dir ./dataset
 ```
-
+We utilize different evaluation metrics in the testing stage. For Truku➝Chinese translation, we exploit:
+* BLEU
+* BERTScore
+* chrF
+While, for Truku➝Chinese translation, we exploit:
+* BLEU
+* BERTScore
+* Rouge-1
 ## Run the simple translation model inference
 To perform the translation model with a specific pre-trained model, you can run the `run_trans.py` script as the following command:
 ```bash
