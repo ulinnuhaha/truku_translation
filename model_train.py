@@ -102,12 +102,8 @@ def main():
         model_inputs = tokenizer(sources, max_length=config.max_source_length, truncation=True)
     
         # setup the tokenizer for targets,
-        # huggingface expects the target tokenized ids to be stored in the labels field
-        # note, newer version of tokenizer supports a text_target argument, where we can create
-        # source and target sentences in one go
-        # with tokenizer.as_target_tokenizer():
+        # tokenized ids of the target are stored as the labels field
         labels = tokenizer(targets, max_length=config.max_target_length, truncation=True)
-    
         model_inputs["labels"] = labels["input_ids"]
         return model_inputs
         
@@ -135,9 +131,6 @@ def main():
         metric_for_best_model="eval_loss", #set metrics as the main parameter
         gradient_accumulation_steps=8,
         do_train=do_train,
-        # careful when attempting to train t5 models on fp16 mixed precision,
-        # the model was trained on bfloat16 mixed precision, and mixing different mixed precision
-        # type might result in nan loss
         # https://discuss.huggingface.co/t/mixed-precision-for-bfloat16-pretrained-models/5315
         fp16=False
     )
@@ -190,8 +183,7 @@ def main():
         t1_stop = perf_counter()
         print("Training elapsed time:", t1_stop - t1_start)
     
-        # saving the model which allows us to leverage
-        # .from_pretrained(model_path)
+        # saving the pre-trained model
         trainer.save_model(fine_tuned_model_checkpoint)
     
     trainer.evaluate()
