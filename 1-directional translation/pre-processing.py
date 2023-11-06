@@ -41,12 +41,12 @@ tc_train, tc_test, tc_val = create_bitext_data(direct)
 print('Successfully creating: Truku to Chinese dataset')
 
 #Save the data for Truku to Chinese translation 
-ct_train.to_csv('train_chi2tru.tsv', sep="\t", index=False,header=False)
-ct_val.to_csv('val_chi2tru.tsv', sep="\t", index=False,header=False)
-ct_test.to_csv('test_chi2tru.tsv', sep="\t", index=False,header=False) 
+ct_train.to_csv('./datasets/'+'train_chi2tru.tsv', sep="\t", index=False,header=False)
+ct_val.to_csv('./datasets/'+'val_chi2tru.tsv', sep="\t", index=False,header=False)
+ct_test.to_csv('./datasets/'+'test_chi2tru.tsv', sep="\t", index=False,header=False) 
 
 #Save the data for Chinese to Truku translation 
-tc_train.to_csv('train_tru2chi.tsv', sep="\t", index=False,header=False)
-tc_val.to_csv('val_tru2chi.tsv', sep="\t", index=False,header=False)
-tc_test.to_csv('test_tru2chi.tsv', sep="\t", index=False,header=False) 
+tc_train.to_csv('./datasets/'+'train_tru2chi.tsv', sep="\t", index=False,header=False)
+tc_val.to_csv('./datasets/'+'val_tru2chi.tsv', sep="\t", index=False,header=False)
+tc_test.to_csv('./datasets/'+'test_tru2chi.tsv', sep="\t", index=False,header=False) 
 print('Successfully saving all dataset')
