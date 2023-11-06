@@ -6,12 +6,18 @@ This is a repository for a bidirectional translation model between Truku and Chi
 
 # Run the training model to fine-tune LLMs for bilingual translation
 To perform the fine-tuning process of LLMs to create the translation model between Truku and Chinese languages, you can run the `model_train.py` script as the following command:
-```bash
+```bashmodel_train
 python model_train.py \
   --model_checkpoint facebook/mbart-large-50 \
   --cache_dir ./pretrained_model \
   --data_dir ./dataset
 ```
+# Run the testing stage of the pre-trained translation model
+To perform the testing process of the translation model, you can run the `model_test.py` script as the following command:
+```bash
+python model_test.py  --pretrained_model ./pretrained_model/nllb_tr_ch --data_dir ./dataset
+```
+
 # Run the simple translation model inference
 To perform the translation model with a specific pre-trained model, you can run the `run_trans.py` script as the following command:
 ```bash
