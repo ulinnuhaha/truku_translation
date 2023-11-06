@@ -1,5 +1,8 @@
 # Bilingual translation of Chinese and Truku languages
-This is a repository for a translation model between Truku and Chinese languages using LLMs. We build some pre-trained models from LLMs to perform bilingual translation between Truku and Chinese languages.
+This is a repository for a bidirectional translation model between Truku and Chinese languages (Truku ↔ Chinese) using LLMs. We build some pre-trained models from LLMs to perform bilingual translation between Truku and Chinese languages. In the experimental stage, we used three LLMs. They are:
+* mT5-small
+* NLLB-200's distilled 600M
+* mBART-50
 
 # Run the training model to fine-tune LLMs for bilingual translation
 To perform the fine-tuning process of LLMs to create the translation model between Truku and Chinese languages, you can run the `model_train.py` script as the following command:
