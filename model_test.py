@@ -64,7 +64,7 @@ def main():
     
     # Load the tokenizer and model from pre-trained translation
     
-    model_name = data_test_args.pretrained_model.split("/")[-1] 
+    model_name = data_test_args.pretrained_model 
         
     if os.path.isdir(model_name): #load the pre-trained translation model if available
         model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
