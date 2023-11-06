@@ -26,6 +26,7 @@ def create_bitext_data(direct):
         prefix = '將華語成太魯閣族語: '
     else:
         prefix = '將太魯閣族語成華語: '
+        
     data_all = train=pd.concat([t1,t2,t3,t4]) #group all dataset
     data_all['source_lang'] = prefix + data_all['source_lang'].astype(str) #change all element values to string
     data_all=data_all.drop_duplicates(subset=['target_lang']) #drop duplicate row
