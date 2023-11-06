@@ -21,9 +21,13 @@ def create_bitext_data(direct):
     t2=get_data('字根句型辭典',direct)
     t3=get_data('族語E樂園',direct)
     t4=get_data('聖經新舊約',direct) #bible
-
+    
+    if direct == 'chi2tr':
+        prefix = '將華語成太魯閣族語: '
+    else:
+        prefix = '將太魯閣族語成華語: '
     data_all = train=pd.concat([t1,t2,t3,t4]) #group all dataset
-    data_all['source_lang'] = '將華語成太魯閣族語: ' + data_all['source_lang'].astype(str) #change all element values to string
+    data_all['source_lang'] = prefix + data_all['source_lang'].astype(str) #change all element values to string
     data_all=data_all.drop_duplicates(subset=['target_lang']) #drop duplicate row
 
     train, test = train_test_split(data_all,test_size=0.2,train_size=0.8,shuffle=True) #split for training and testing data
