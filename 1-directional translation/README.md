@@ -17,6 +17,7 @@ python mt5_train.py \
   --cache_dir ./1d_translation_model \
   --trans_direction ch2tr
 ```
+trans_direction refers to the direction of the translation model where ch2tr is Chinese➝Truku
 ## Run mT5+MLM
 To perform adapting Multilingual Language Models to unseen languages with MLM-TUNING, we do MLM-fine-tuning of Google's mT5-small on Truku languages to get the initial model checkpoint for translation.
 Before performing mT5+MLM, we need to prepare special data for MLM-Tunnig process of Truku languagges. To perform this, you can run `truku_data_for_mlm.py` scipt.
