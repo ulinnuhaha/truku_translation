@@ -46,12 +46,11 @@ python mt5_train.py \
   --trans_direction ch2tr
 ```
 ## Run mT5 from Scratch
-
-After we obtain training and validation data of Chinese and Truku corpus from our corpus. You can run the `mt5_mlm.py` script to perform mT5 from Scratch as the following command:
+Since we propose the mT5 model from Scratch. We also need to create a new tokenizer from scratch. To perform this,  You can run the `new_tokenizer.py` script.
+After we prepare training and validation data of Chinese and Truku data from our corpus. You can run the `mt5_mlm.py` script to perform mT5 from Scratch as the following command:
 ```bash
 python mt5_mlm.py \
-    --model_name_or_path="google/mt5-small" \
-    --tokenizer_name="google/mt5-small" \
+    --tokenizer_name="/mt5-tr_ch" \
     --train_file="./datasets/truku_chinese_train.csv" \
     --validation_file="./datasets/truku_chinese_val.csv" \
     --max_seq_length="512" \
