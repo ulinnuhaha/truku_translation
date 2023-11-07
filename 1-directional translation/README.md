@@ -18,7 +18,10 @@ python mt5_train.py \
   --trans_direction ch2tr
 ```
 ## Run mT5+MLM
-To perform adapting Multilingual Language Models to unseen languages with MLM-TUNING, we do MLM-fine-tuning of Google's mT5-small on Truku languages to get the initial model checkpoint for translation. You can run the `mt5_mlm.py` script as the following command:
+To perform adapting Multilingual Language Models to unseen languages with MLM-TUNING, we do MLM-fine-tuning of Google's mT5-small on Truku languages to get the initial model checkpoint for translation.
+Before performing mT5+MLM, we need to prepare special data for MLM-Tunnig process of Truku languagges. To perform this, you can run `truku_data_for_mlm.py` scipt.
+
+After we obtain training and validation data of Truku corpus for performing MLM-Tuning. You can run the `mt5_mlm.py` script as the following command:
 ```bash
 python mt5_mlm.py.py \
     --model_name_or_path="google/mt5-small" \
