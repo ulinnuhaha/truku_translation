@@ -1,5 +1,5 @@
 # One-directional translation of Chinese and Truku languages (Truku➝Chinese or Chinese➝Truku)
-This is a repository for 1-directional translation model between Truku and Chinese languages (Truku➝Chinese or Chinese➝Truku) using mT5. We build some pre-trained models based on mT5 to perform translation between Truku and Chinese languages. In the experimental stage, we used three schemes. They are:
+This is a repository for 1-directional translation model between Truku and Chinese languages (Truku➝Chinese or Chinese➝Truku) using mT5. We build some translation models based on mT5 to perform translation between Truku and Chinese languages. In the experimental stage, we used three schemes. They are:
 * mT5-standard (Google's mT5-small)
 * mT5 from Scratch
 * mT5+MLM
