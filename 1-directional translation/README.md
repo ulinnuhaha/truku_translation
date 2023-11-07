@@ -52,8 +52,8 @@ After we obtain training and validation data of Chinese and Truku corpus from ou
 python mt5_mlm.py \
     --model_name_or_path="google/mt5-small" \
     --tokenizer_name="google/mt5-small" \
-    --train_file="./datasets/truku_train.csv" \
-    --validation_file="./datasets/truku_val.csv" \
+    --train_file="./datasets/truku_chinese_val.csv" \
+    --validation_file="./datasets/truku_chinese_train.csv" \
     --max_seq_length="512" \
     --per_device_train_batch_size 8 \
     --per_device_eval_batch_size 8 \
@@ -65,8 +65,8 @@ When the model of mT5 from Scratch is already trained. The next step we can buil
 ```bash
 python mt5_train.py \
   --model_checkpoint 1d_translation_model/mt5_scratch \
-  --train_file ./datasets/truku_chinese_train.tsv \
-  --eval_file ./datasets/truku_chinese_val.tsv \
+  --train_file ./datasets/train_chi2tru.tsv \
+  --eval_file ./datasets/val_chi2tru.tsv \
   --cache_dir ./1d_translation_model \
   --trans_direction ch2tr
 ```
