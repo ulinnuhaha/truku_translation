@@ -13,7 +13,7 @@ python model_train.py \
   --cache_dir ./pretrained_model \
   --data_dir ./dataset
 ```
-## Run the testing stage of the pre-trained translation model
+## Run the testing stage of the fine-tuned translation model
 To perform the testing process of the translation model, we carry out the bilingual translation of both Truku➝Chinese and Chinese➝Truku with some evaluation metrics. You can run the `model_test.py` script as the following command:
 ```bash
 python model_test.py \
