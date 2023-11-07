@@ -10,7 +10,7 @@ To perform this preprocessing step, you can run the `pre-processing.py` script.
 ## Run mT5-standard (Google's mT5-small)
 To perform the pre-training process of the translation model based on mT5, we fine-tune Google's mT5-small to our translation model. You can run the `mt5-standard.py` script as the following command:
 ```bash
-python mt5-standard.py \
+python mt5_standard_train.py \
   --model_checkpoint google/mt5-small \
   --train_file ./datasets/train_chi2tru.tsv \
   --eval_file ./datasets/val_chi2tru.tsv \
