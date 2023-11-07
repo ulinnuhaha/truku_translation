@@ -51,7 +51,8 @@ Since we propose the mT5 model from Scratch. We also need to create a new tokeni
 After we prepare training and validation data of Chinese and Truku data from our corpus. You can run the `mt5_mlm.py` script to perform mT5 from Scratch as the following command:
 ```bash
 python mt5_mlm.py \
-    --tokenizer_name="/mt5-tr_ch" \
+    --config_name="google/mt5-small" \
+    --tokenizer_name="mt5-tr_ch" \
     --train_file="./datasets/truku_chinese_train.csv" \
     --validation_file="./datasets/truku_chinese_val.csv" \
     --max_seq_length="512" \
