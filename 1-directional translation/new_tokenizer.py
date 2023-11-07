@@ -29,7 +29,7 @@ tokenizer = SentencePieceUnigramTokenizer(unk_token="<unk>", eos_token="</s>", p
 # Initialize dataset to create a new tokenizer
 tc_data=pd.DataFrame(tr_ch,columns =['text'])
 tc_data['text']=tc_data['text'].apply(lambda x: str(x))
-tc_data=all_data.dropna() #delete NaN Row
+tc_data=tc_data.dropna() #delete NaN Row
 from datasets import Dataset
 dataset1=Dataset.from_pandas(tc_data)
 dataset1=dataset1.remove_columns(["__index_level_0__"])
