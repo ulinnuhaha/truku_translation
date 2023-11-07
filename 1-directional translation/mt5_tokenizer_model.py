@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# We copied this code from https://github.com/huggingface/transformers/blob/main/examples/flax/language-modeling/t5_tokenizer_model.py
 import json
 from typing import Iterator, List, Union
 
