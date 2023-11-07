@@ -32,7 +32,7 @@ tc_data['text']=tc_data['text'].apply(lambda x: str(x))
 tc_data=tc_data.dropna() #delete NaN Row
 from datasets import Dataset
 dataset1=Dataset.from_pandas(tc_data)
-dataset1=dataset1.remove_columns(["__index_level_0__"])
+#dataset1=dataset1.remove_columns(["__index_level_0__"])
 
 # Load other traditional Chinese corpus to be added into our corpus
 dataset2 = load_dataset("jed351/Traditional-Chinese-Common-Crawl-Filtered", data_files="C4_Traditional_Chinese-00001-of-00008.jsonl", split="train")
