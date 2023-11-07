@@ -27,8 +27,8 @@ After we obtain training and validation data of Truku corpus for performing MLM-
 python mt5_mlm.py \
     --model_name_or_path="google/mt5-small" \
     --tokenizer_name="google/mt5-small" \
-    --train_file="./datasets/train_truku.csv" \
-    --validation_file="./datasets/val_truku.csv" \
+    --train_file="./datasets/truku_train.csv" \
+    --validation_file="./datasets/truku_val.csv" \
     --max_seq_length="512" \
     --per_device_train_batch_size 8 \
     --per_device_eval_batch_size 8 \
