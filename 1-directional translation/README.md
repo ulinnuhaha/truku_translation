@@ -8,7 +8,7 @@ This is a repository for 1-directional translation model between Truku and Chine
 Before we perform the 1-directional translation model, we need to prepare training, evaluation, and testing data. To implement the preprocessing step, you can run the `pre-processing.py` script.
 
 ## Run mT5-standard (Google's mT5-small)
-To perform the pre-training process of the translation model based on mT5, we fine-tune Google's mT5-small to our translation model. You can run the `mt5-standard.py` script as the following command:
+To perform the pre-training process of the translation model based on mT5, we fine-tune Google's mT5-small to our translation model. You can run the `mt5_standard.py` script as the following command:
 ```bash
 python mt5_train.py \
   --model_checkpoint google/mt5-small \
