@@ -47,7 +47,7 @@ python mt5_train.py \
 ```
 ## Run mT5 from Scratch
 
-After we obtain training and validation data of Chinese and Truku corpus for performing mT5 from Scratch. You can run the `mt5_mlm.py` script as the following command:
+After we obtain training and validation data of Chinese and Truku corpus from our corpus. You can run the `mt5_mlm.py` script to perform mT5 from Scratch as the following command:
 ```bash
 python mt5_mlm.py \
     --model_name_or_path="google/mt5-small" \
