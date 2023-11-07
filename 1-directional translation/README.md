@@ -21,7 +21,6 @@ python mt5_train.py \
 To perform adapting Multilingual Language Models to unseen languages with MLM-TUNING, we do MLM-fine-tuning of Google's mT5-small on Truku languages to get the initial model checkpoint for translation. You can run the `mt5_mlm.py` script as the following command:
 ```bash
 python mt5_mlm.py.py \
-python3 run_mt5_mlm_pytorch.py \
     --model_name_or_path="google/mt5-small" \
     --tokenizer_name="google/mt5-small" \
     --train_file="./dataset/train_truku.csv" \
