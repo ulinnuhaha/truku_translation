@@ -19,7 +19,7 @@ python mt5_train.py \
 ```
 trans_direction refers to the direction of the translation model where ch2tr is Chinese➝Truku
 ## Run mT5+MLM
-Before performing mT5+MLM and mT5 from Scratch, we need to prepare special data for these processes. Then you can run `create_data_for_mlm.py` script.
+Before performing mT5+MLM and mT5 from Scratch, we need to prepare special data, i.e., training and validation data for these processes. Then you can run `create_data_for_mlm.py` script.
 
 To perform adapting Multilingual Language Models to unseen languages with MLM-TUNING, we do MLM-fine-tuning of Google's mT5-small on Truku languages to get the initial model checkpoint for translation.
 After we obtain training and validation data of Truku corpus for performing MLM-Tuning. You can run the `mt5_mlm.py` script as the following command:
@@ -42,6 +42,31 @@ python mt5_train.py \
   --model_checkpoint 1d_translation_model/mt5_ft_mlm \
   --train_file ./datasets/train_chi2tru.tsv \
   --eval_file ./datasets/val_chi2tru.tsv \
+  --cache_dir ./1d_translation_model \
+  --trans_direction ch2tr
+```
+## Run mT5 from Scratch
+
+After we obtain training and validation data of Chinese and Truku corpus for performing mT5 from Scratch. You can run the `mt5_mlm.py` script as the following command:
+```bash
+python mt5_mlm.py \
+    --model_name_or_path="google/mt5-small" \
+    --tokenizer_name="google/mt5-small" \
+    --train_file="./datasets/truku_train.csv" \
+    --validation_file="./datasets/truku_val.csv" \
+    --max_seq_length="512" \
+    --per_device_train_batch_size 8 \
+    --per_device_eval_batch_size 8 \
+    --do_train \
+    --do_eval \
+    --output_dir="1d_translation_model/mt5_scratch"
+```
+When the model of mT5 from Scratch is already trained. The next step we can build the translation model similar to mT5-standard by running `mt5_train.py` script as the following command:
+```bash
+python mt5_train.py \
+  --model_checkpoint 1d_translation_model/mt5_scratch \
+  --train_file ./datasets/truku_chinese_train.tsv \
+  --eval_file ./datasets/truku_chinese_val.tsv \
   --cache_dir ./1d_translation_model \
   --trans_direction ch2tr
 ```
