@@ -47,6 +47,7 @@ python mt5_train.py \
 ```
 ## Run mT5 from Scratch
 Since we propose the mT5 model from Scratch. We also need to create a new tokenizer from scratch. To perform this,  You can run the `new_tokenizer.py` script.
+
 After we prepare training and validation data of Chinese and Truku data from our corpus. You can run the `mt5_mlm.py` script to perform mT5 from Scratch as the following command:
 ```bash
 python mt5_mlm.py \
