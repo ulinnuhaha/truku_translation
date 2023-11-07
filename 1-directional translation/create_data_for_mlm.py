@@ -33,10 +33,10 @@ def create_data_mlm(df,lang):
         df=df.rename(columns={"truku": "text"})
     else:
         df=df
-    train=datafinal[round(0.15*(len(datafinal))):]
-    val=datafinal[:round(0.15*(len(datafinal)))]
-    df.to_csv("./datasets/"+type+'train.csv', index=False)
-    df.to_csv("./datasets/"+type+'val.csv', index=False)
+    train=df[round(0.15*(len(df))):]
+    val=df[:round(0.15*(len(df)))]
+    train.to_csv("./datasets/"+type+'train.csv', index=False)
+    val.to_csv("./datasets/"+type+'val.csv', index=False)
 
 # Create training and val data for mT5+MLM
 create_data_mlm(df, 'truku')
