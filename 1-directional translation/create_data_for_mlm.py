@@ -46,5 +46,5 @@ truku_data=df['truku'].tolist()
 chin_data=df['chinese'].tolist()
 truku_chin=truku_data + chin_data
 all_data=pd.DataFrame(truku_chin,columns =['text'])
-
+all_data = all_data.sample(frac=1).reset_index(drop=True)
 create_data_mlm(all_data, 'truku_chinese')
