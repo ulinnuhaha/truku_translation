@@ -12,16 +12,13 @@ df1=get_data('其他來源')
 df2=get_data('字根句型辭典')
 df3=get_data('族語E樂園')
 df4=get_data('聖經新舊約') #bible
-truku_data=df['truku'].tolist()
-chin_data=df['chinese'].tolist()
-truku_chin=truku_data + chin_data
+
+df=pd.concat([df1,df2,df3,df4])
+df=df.drop_duplicates() #drop duplicates of rows
 #Get The Truku dataset & Chinese from our dataset
 truku_data=df['truku'].tolist()
 chin_data=df['chinese'].tolist()
 tr_ch=truku_data + chin_data
-
-df=pd.concat([df1,df2,df3,df4])
-df=df.drop_duplicates() #drop duplicates of rows
 
 #load sentence-piece-unigram-based tokenizer
 from mt5_tokenizer_model import SentencePieceUnigramTokenizer
