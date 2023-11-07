@@ -15,25 +15,36 @@ df=df.drop_duplicates() #drop duplicates of rows
 df
 
 df['truku']=df['truku'].apply(lambda x: str(x)) #make all data in string type
-df['truku']=df['truku'].apply(lambda row: row.encode('ascii',errors='ignore').decode()) # remove chinese characters
+df['chinese']=df['chinese'].apply(lambda x: str(x)) #make all data in string type
+df['truku']=df['truku'].apply(lambda row: row.encode('ascii',errors='ignore').decode()) # remove chinese characters in truku sentences
 
 def word_count(sentence):
   sentence = str(sentence).split()
   return len(sentence)
 df['word_count'] = df['truku'].apply(word_count)
-datafinal=df.loc[df['word_count'] > 3].reset_index() #we only select a sentence that contains more than 3 words
+df=df.loc[df['word_count'] > 3].reset_index() #we only select a sentence that contains more than 3 words
 
-# split to train and validation data
-train=datafinal[round(0.15*(len(datafinal))):]
-val=datafinal[:round(0.15*(len(datafinal)))]
 
 # Crating special data for MLM fine-tuning
-def create_data_mlm(df,type):
+def create_data_mlm(df,lang):
     df = df.dropna() # drop Nan values
-    df=df[['truku']] #select only Truku data
-    df=df.rename(columns={"truku": "text"})
-    df.reset_index(drop=True, inplace=True)
-    df.to_csv("./datasets/"+type+'_truku.csv', index=False)
+    if lang == 'truku':
+        df=df[['truku']] #select only Truku data
+        df=df.rename(columns={"truku": "text"})
+    else:
+        df=df
+    train=datafinal[round(0.15*(len(datafinal))):]
+    val=datafinal[:round(0.15*(len(datafinal)))]
+    df.to_csv("./datasets/"+type+'train.csv', index=False)
+    df.to_csv("./datasets/"+type+'val.csv', index=False)
 
-create_data_mlm(train,'train')
-create_data_mlm(val,'val')
+# Create training and val data for mT5+MLM
+create_data_mlm(df, 'truku')
+
+# Create training and val data for mT5 from Scratch
+truku_data=df['truku'].tolist()
+chin_data=df['chinese'].tolist()
+truku_chin=truku_data + chin_data
+all_data=pd.DataFrame(truku_chin,columns =['text'])
+
+create_data_mlm(all_data, 'truku_chinese')
