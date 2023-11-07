@@ -52,8 +52,8 @@ After we obtain training and validation data of Chinese and Truku corpus from ou
 python mt5_mlm.py \
     --model_name_or_path="google/mt5-small" \
     --tokenizer_name="google/mt5-small" \
-    --train_file="./datasets/truku_chinese_val.csv" \
-    --validation_file="./datasets/truku_chinese_train.csv" \
+    --train_file="./datasets/truku_chinese_train.csv" \
+    --validation_file="./datasets/truku_chinese_val.csv" \
     --max_seq_length="512" \
     --per_device_train_batch_size 8 \
     --per_device_eval_batch_size 8 \
