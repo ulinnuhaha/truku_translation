@@ -24,7 +24,7 @@ Before performing mT5+MLM, we need to prepare special data for MLM-Tunnig proces
 
 After we obtain training and validation data of Truku corpus for performing MLM-Tuning. You can run the `mt5_mlm.py` script as the following command:
 ```bash
-python mt5_mlm.py.py \
+python mt5_mlm.py \
     --model_name_or_path="google/mt5-small" \
     --tokenizer_name="google/mt5-small" \
     --train_file="./datasets/train_truku.csv" \
