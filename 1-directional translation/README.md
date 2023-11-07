@@ -34,5 +34,5 @@ python mt5_mlm.py \
     --per_device_eval_batch_size 8 \
     --do_train \
     --do_eval \
-    --output_dir="1d_translation_model/mt5_mlm"
+    --output_dir="1d_translation_model/mt5_ft_mlm"
 ```
