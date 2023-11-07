@@ -3,7 +3,7 @@ import datasets
 from datasets import Dataset, concatenate_datasets, load_dataset
 # load the corpus we have
 def get_data(file):
-    df=pd.read_excel('./dataset/'+file+'.xlsx')
+    df=pd.read_excel('./datasets/'+file+'.xlsx')
     df =df.replace(to_replace=r'_x000D_', value='', regex=True) #delete _x000D_ found in the element
     df=df.rename(columns={"華語": "chinese", "太魯閣族語": "truku"}) #rename columns
     return df[['chinese','truku']]
