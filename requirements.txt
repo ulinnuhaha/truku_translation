@@ -1,0 +1,10 @@
+transformers==4.33
+accelerate
+bert-score
+evaluate
+openpyxl
+pandas
+protobuf
+sacrebleu
+rouge-score
+sentencepiece
