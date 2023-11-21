@@ -1,3 +1,4 @@
+pytorch==2.0.1
 transformers==4.33
 accelerate
 bert-score
@@ -8,3 +9,6 @@ protobuf
 sacrebleu
 rouge-score
 sentencepiece
+argparse
+datasets
+dataclasses
