@@ -5,6 +5,8 @@ This is a repository for a bidirectional translation model between Truku and Chi
 * mBART-50
 
 For the one-directional translation model (Truku➝Chinese or Chinese➝Truku), please go to the `1-directional translation` directory.
+Please install the required packages by:
+`pip install -r requirements.txt`
 ## Run the training model to fine-tune LLMs for bilingual translation
 To perform the fine-tuning process of LLMs to create the translation model between Truku and Chinese languages, you can run the `model_train.py` script as the following command:
 ```bashmodel_train
