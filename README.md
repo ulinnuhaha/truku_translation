@@ -13,7 +13,7 @@ pip install -r requirements.txt
 ## Upgrade of NLLB model by expanding the tokenizer vocab
 If you want to upgrade the NLLB model by expanding the tokenizer vocab in a language such as Traditional Chinese Language, You can run:
 ```
-upgrade_nllb_tokenizer
+upgrade_nllb_tokenizer.ipynb
 ```
 ## Run the training model to fine-tune LLMs for bilingual translation
 To perform the fine-tuning process of LLMs to create the translation model between Truku and Chinese languages, you can run the `model_train.py` script as the following command:
