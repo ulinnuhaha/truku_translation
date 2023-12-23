@@ -78,6 +78,27 @@ def main():
     
     # Load the tokenizer and model from pre-trained LLMs
     tokenizer = AutoTokenizer.from_pretrained(data_train_args.model_checkpoint)
+    
+    def fix_tokenizer(tokenizer, new_lang='tru_Latn'):
+        """ Add a new language token to the tokenizer vocabulary (this should be done each time after its initialization) """
+        old_len = len(tokenizer) - int(new_lang in tokenizer.added_tokens_encoder)
+        tokenizer.lang_code_to_id[new_lang] = old_len-1
+        tokenizer.id_to_lang_code[old_len-1] = new_lang
+        # always move "mask" to the last position
+        tokenizer.fairseq_tokens_to_ids["<mask>"] = len(tokenizer.sp_model) + len(tokenizer.lang_code_to_id) + tokenizer.fairseq_offset
+
+        tokenizer.fairseq_tokens_to_ids.update(tokenizer.lang_code_to_id)
+        tokenizer.fairseq_ids_to_tokens = {v: k for k, v in tokenizer.fairseq_tokens_to_ids.items()}
+        if new_lang not in tokenizer._additional_special_tokens:
+            tokenizer._additional_special_tokens.append(new_lang)
+        # clear the added token encoder; otherwise a new token may end up there by mistake
+        tokenizer.added_tokens_encoder = {}
+        tokenizer.added_tokens_decoder = {}
+
+    if len(tokenizer) != tokenizer.vocab_size: #Check whether the values between len(tokenizer) and tokenizer.vocab_size are same after we add new language tag
+        print("fix the tokenizer configuration")
+        fix_tokenizer(tokenizer)
+
     model_name = data_train_args.model_checkpoint.split("/")[-1] #the name of pre-trained model
     
     fine_tuned_model_checkpoint = os.path.join(
