@@ -1,8 +1,8 @@
 # Bilingual translation of Traditional Chinese and Truku languages
 This is a repository for a bidirectional translation model between Truku and Traditional Chinese languages (Truku ↔ Chinese) using LLMs. We build some translation models from LLMs to perform bilingual translation between Truku and Traditional Chinese languages. In the experimental stage, we used three LLMs. They are:
-* mT5-small (google/mt5-small)
-* NLLB-200's distilled 600M (facebook/nllb-200-distilled-600M)
-* mBART-50 (facebook/mbart-large-50)
+* mT5-small (`google/mt5-small`)
+* NLLB-200's distilled 600M (`facebook/nllb-200-distilled-600M`)
+* mBART-50 (`facebook/mbart-large-50`)
 
 For the one-directional translation model (Truku➝ Chinese or Chinese➝Truku), please go to the `1-directional translation` directory.
 
