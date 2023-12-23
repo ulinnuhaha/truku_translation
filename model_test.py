@@ -11,6 +11,7 @@ from datasets import load_dataset
 import argparse
 from transformers import (
     AutoTokenizer,
+    NllbTokenizer,
     AutoModelForSeq2SeqLM,
     Seq2SeqTrainingArguments,
     DataCollatorForSeq2Seq,
@@ -92,6 +93,7 @@ def main():
     if len(tokenizer) != tokenizer.vocab_size: #Check whether the values between len(tokenizer) and tokenizer.vocab_size are same after we added Truku language tag
         # This is only performed when we already expanded the tokenizer of the NLLB model
         print("fix the tokenizer configuration")
+        tokenizer = NllbTokenizer.from_pretrained(data_train_args.model_checkpoint)
         fix_tokenizer(tokenizer)
         
     print("number of parameters:", model.num_parameters())
