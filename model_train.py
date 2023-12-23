@@ -96,6 +96,7 @@ def main():
         tokenizer.added_tokens_decoder = {}
 
     if len(tokenizer) != tokenizer.vocab_size: #Check whether the values between len(tokenizer) and tokenizer.vocab_size are same after we add new language tag
+        # This is performed when we expand the tokenizer
         print("fix the tokenizer configuration")
         fix_tokenizer(tokenizer)
 
