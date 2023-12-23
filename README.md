@@ -1,17 +1,17 @@
 # Bilingual translation of Traditional Chinese and Truku languages
-This is a repository for a bidirectional translation model between Truku and Traditional Chinese languages (Truku ↔ Traditional Chinese) using LLMs. We build some translation models from LLMs to perform bilingual translation between Truku and Traditional Chinese languages. In the experimental stage, we used three LLMs. They are:
+This is a repository for a bidirectional translation model between Truku and Traditional Chinese languages (Truku ↔ Chinese) using LLMs. We build some translation models from LLMs to perform bilingual translation between Truku and Chinese languages. In the experimental stage, we used three LLMs. They are:
 * mT5-small
 * NLLB-200's distilled 600M
 * mBART-50
 
-For the one-directional translation model (Truku➝Traditional Chinese or Traditional Chinese➝Truku), please go to the `1-directional translation` directory.
+For the one-directional translation model (Truku➝ Chinese or Chinese➝Truku), please go to the `1-directional translation` directory.
 
 Please install the required packages by:
 ```
 pip install -r requirements.txt
 ```
 ## Upgrade of NLLB model by expanding the tokenizer vocab
-If you want to upgrade the NLLB model by expanding the tokenizer vocab in a language such as Traditional Traditional Chinese Language, You can run:
+If you want to upgrade the NLLB model by expanding the tokenizer vocab in a language such as Traditional Chinese Language, You can run:
 ```
 upgrade_nllb_tokenizer.ipynb
 ```
@@ -26,18 +26,18 @@ python model_train.py \
   --data_dir ./dataset
 ```
 ## Run the testing stage of the fine-tuned translation model
-To perform the testing process of the translation model, we carry out the bilingual translation of both Truku➝Traditional Chinese and Traditional Chinese➝Truku with some evaluation metrics. You can run the `model_test.py` script as the following command:
+To perform the testing process of the translation model, we carry out the bilingual translation of both Truku➝Chinese and Chinese➝Truku with some evaluation metrics. You can run the `model_test.py` script as the following command:
 ```bash
 python model_test.py \
   --model_name_or_path ./pretrained_model/nllb_tr_ch \
   --data_dir ./dataset
 ```
-We take different evaluation metrics in the testing stage. For Truku➝Traditional Chinese translation, we exploit:
+We take different evaluation metrics in the testing stage. For Truku➝Chinese translation, we exploit:
 * BLEU
 * BERTScore
 * chrF
 
-While, for Traditional Chinese➝Truku translation, we exploit:
+While, for Chinese➝Truku translation, we exploit:
 * BLEU
 * BERTScore
 * Rouge-1
