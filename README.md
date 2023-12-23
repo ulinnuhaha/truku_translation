@@ -26,7 +26,7 @@ python model_train.py \
   --data_dir ./dataset
 ```
 ## Run the testing stage of the fine-tuned translation model
-To perform the testing process of the translation model, we carry out the bilingual translation of both Truku➝Chinese and Chinese➝Truku with some evaluation metrics. You can run the `model_test.py` script as the following command:
+To perform the testing process of the translation model, we carry out the bilingual translation of both Truku➝Chinese and Chinese➝Truku with some evaluation metrics. You can run the `model_test.py` script by loading the fine-tuned models in the `pretrained_model` directory as the following command:
 ```bash
 python model_test.py \
   --model_name_or_path ./pretrained_model/nllb_tr_ch \
