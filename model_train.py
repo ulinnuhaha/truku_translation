@@ -13,6 +13,7 @@ from torch.utils.data import Dataset, DataLoader
 import argparse
 from transformers import (
     AutoTokenizer,
+    NllbTokenizer,
     AutoModelForSeq2SeqLM,
     DataCollatorForSeq2Seq,
     Seq2SeqTrainingArguments,
@@ -98,6 +99,7 @@ def main():
     if len(tokenizer) != tokenizer.vocab_size: #Check whether the values between len(tokenizer) and tokenizer.vocab_size are same after we added Truku language tag
         # This is only performed when we already expanded the tokenizer of the NLLB model
         print("fix the tokenizer configuration")
+        tokenizer = NllbTokenizer.from_pretrained(data_train_args.model_checkpoint)
         fix_tokenizer(tokenizer)
 
     model_name = data_train_args.model_checkpoint.split("/")[-1] #the name of pre-trained model
