@@ -6,4 +6,4 @@ Please make sure that the following files are already placed in this directory:
 * `族語E樂園`
 * `聖經新舊約`
 
-Then, run the `pre-processing.py` script in the 1-directional translation repository.
+Then, run the `pre-processing.py` script in the `1-directional translation' repository.
