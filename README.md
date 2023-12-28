@@ -41,6 +41,9 @@ While, for Chinese➝Truku translation, we exploit:
 * BLEU
 * BERTScore
 * Rouge-1
+## Fine-tune the NLLB model for bilingual translation scheme without prefixes in the input sentence
+Since all the models in this directory perform the translation scheme using prefixes in the input sentence including the NLLB model. If you want to fine-tune the NLLB model with a scheme that does not put prefixes in the input sentence, you can go to the directory of `NLLB without prefix`. This director still also performs the bidirectional translation model between Truku and Traditional Chinese languages (Truku ↔ Chinese)
+
 ## Run the simple translation model inference
 To perform the translation model with a specific pre-trained model, you can run the `run_trans.py` script as the following command:
 ```bash
