@@ -15,7 +15,7 @@ If you want to upgrade the NLLB model by expanding the tokenizer vocabs from the
 ```
 upgrade_nllb_tokenizer.ipynb
 ```
-After saving the expanded model in the 'pretrained_model' directory as the initial model_checkpoint for the fine-tuning process of the translation task. You can train this model for translation-task between Truku and Traditional Chinese languages using `model_train.py`.
+After saving the expanded model in the `pretrained_model` directory as the initial model_checkpoint for the fine-tuning process of the translation task. You can train this model for translation-task between Truku and Traditional Chinese languages using `model_train.py`.
 This training process uses an adding prefix scheme in the input sentence as we perform in `/dataset/preprocessing.py`.
 ## Run the training model to fine-tune LLMs for bilingual translation
 To perform the fine-tuning process of LLMs to create the translation model between Truku and Traditional Chinese languages, you can run the `model_train.py` script as the following command:
