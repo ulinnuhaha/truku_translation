@@ -34,7 +34,7 @@ def DataTrainingArguments():
 #create the configuration class
 @dataclass
 class Config:
-    lang: str = "tr_ch"
+    lang: str = "tr_ch_no_prefix"
     batch_size: int = 16
     num_workers: int = 4
     seed: int = 42
@@ -45,8 +45,6 @@ class Config:
     weight_decay: float = 0.01
     epochs: int = 20
     device: torch.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
-    #model_checkpoint: str = "facebook/nllb-200-distilled-600M"
 
     def __post_init__(self):
         random.seed(self.seed)
