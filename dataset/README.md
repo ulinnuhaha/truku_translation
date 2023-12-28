@@ -6,4 +6,4 @@ Please make sure that the following files are already placed in this directory:
 * `族語E樂園`
 * `聖經新舊約`
 
-Then, run the `preprocessing.py` script.
+Then, run the `preprocessing_data.py` script.
