@@ -1,0 +1,5 @@
+sentencepiece
+gradio>=3.18.0
+torch
+sentence-splitter==1.4
+sacremoses== 0.0.45
