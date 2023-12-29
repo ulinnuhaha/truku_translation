@@ -7,7 +7,7 @@ import torch
 from sacremoses import MosesPunctNormalizer
 from transformers import AutoModelForSeq2SeqLM, NllbTokenizer
 
-MODEL_URL = "nllb_expanded_tr_ch"
+MODEL_URL = "./pretrained_model/nllb_expanded_tr_ch"
 
 DIRECTION = {
     "Truku to Traditional Chinese": "將太魯閣族語成華語: ",
