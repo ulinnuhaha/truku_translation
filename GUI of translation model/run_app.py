@@ -1,7 +1,7 @@
 import gradio as gr
 
 
-from translation import Translator, DIRECTION
+from translation_model import Translator, DIRECTION
 DIRECTION_LIST = list(DIRECTION.keys())
 
 def translate_wrapper(dir, text_input, by_sentence=True, preprocess=True, random=False, num_beams=4):
