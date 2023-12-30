@@ -35,7 +35,7 @@ def DataTrainingArguments():
 #create the configuration class
 @dataclass
 class Config:
-    lang: str = "tr_ch"
+    lang: str = "tr_ch" # The languages in translation: Truku & traditional Chinese
     batch_size: int = 16
     seed: int = 42
     max_source_length: int = 128 # the maximum length in number of tokens for tokenizing the input sentence
