@@ -56,7 +56,7 @@ class Config:
 def main():
     data_train_args=DataTrainingArguments() #call the arguments
     config = Config()
-    #Load the training dataset from tsv files
+    #Load the training and validation dataset from tsv files
     data_file = {}
     for split in ["train", "val"]:
         output_path = os.path.join(data_train_args.data_dir, f"{split}.tsv")
