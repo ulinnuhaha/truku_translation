@@ -136,9 +136,11 @@ def main():
             predictions=decoded_preds,
             references=decoded_labels
         )
-        chrf=chrf_score.compute(predictions=decoded_preds, references=decoded_labels) ##The higher the value, the better the translations
-        result["sacrebleu"] = score["score"] #The higher the value, the better the translations
-        result["chrf"] = chrf["score"] #The higher the value, the better the translations
+        chrf=chrf_score.compute(predictions=decoded_preds, references=decoded_labels) # The higher the value, the better the translations
+        berts = bert_score.compute(predictions=decoded_preds, references=decoded_labels,  model_type="bert-base-chinese")
+        result["bert_score"]= np.mean(berts['f1']) # The higher the value, the better the translations
+        result["sacrebleu"] = score["score"] # The higher the value, the better the translations
+        result["chrf"] = chrf["score"] # The higher the value, the better the translations
         return {k: round(v, 4) for k, v in result.items()}
     
     #The training arguments for the training session, can be ignored since we do not perform a training session
