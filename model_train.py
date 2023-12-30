@@ -118,18 +118,19 @@ def main():
     print("number of parameters:", model.num_parameters())
     def batch_tokenize_fn(examples):
         """
-        Generate the input_ids and labels field for dataset dict.
+        Generate the input_ids and labels field for dataset dict of training data.
         """
         sources = examples["source_lang"]
         targets = examples["target_lang"]
+        # tokenizing the input sentences
         model_inputs = tokenizer(sources, max_length=config.max_source_length, truncation=True)
     
-        # setup the tokenizer for targets,
+        # tokenizing the target sentences
         # tokenized ids of the target are stored as the labels field
         labels = tokenizer(targets, max_length=config.max_target_length, truncation=True)
         model_inputs["labels"] = labels["input_ids"]
         return model_inputs
-    #tokenizing the input and output sentences    
+    #tokenizing the input and target sentences    
     dataset_dict_tokenized = dataset_dict.map(
         batch_tokenize_fn,
         batched=True,
@@ -151,7 +152,7 @@ def main():
         predict_with_generate=True,
         load_best_model_at_end=True,
         greater_is_better=False, #lower score better result of the main metric
-        metric_for_best_model="eval_loss", #set metrics as the main parameter
+        metric_for_best_model="eval_loss", #the main metric in the training process
         gradient_accumulation_steps=8,
         do_train=do_train,
         # https://discuss.huggingface.co/t/mixed-precision-for-bfloat16-pretrained-models/5315
@@ -160,9 +161,9 @@ def main():
     # evalution metrics computation
     def compute_metrics(eval_pred):
         """
-        Compute rouge and bleu metrics for seq2seq model generated prediction.
+        Compute rouge, BERTscore, chrF, and bleu metrics for seq2seq model generated prediction.
         
-        tip: we can run trainer.predict on our eval/test dataset to see what a sample
+        tip: we can run trainer.predict on our eval dataset to see what a sample
         eval_pred object would look like when implementing custom compute metrics function
         """
         predictions, labels = eval_pred
