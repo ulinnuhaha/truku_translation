@@ -40,7 +40,7 @@ class Config:
     num_workers: int = 4
     seed: int = 42
     max_source_length: int = 128 # the maximum length in number of tokens for tokenizing the input sentence
-    max_target_length: int = 128 # the maximum length in number of tokens for tokenizing the input sentence
+    max_target_length: int = 128 # the maximum length in number of tokens for tokenizing the target sentence
 
     lr: float = 0.0005
     weight_decay: float = 0.01
