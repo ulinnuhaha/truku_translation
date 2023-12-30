@@ -155,11 +155,11 @@ def main():
         )
     
     # perform the testing process
-    print('+++-----Testing stage for Truku to Chinese-----+++')
+    print('+++-----Testing stage for Truku to Chinese translation-----+++')
     pred_t2c=trainer.predict(dataset_dict_tokenized["test_tru2chi"])
-    print(pred_t2c)
-    print('+++-----Testing stage for Chinese to Truku-----+++')
+    print(pred_t2c[-1])
+    print('+++-----Testing stage for Chinese to Truku translation-----+++')
     pred_c2t=trainer.predict(dataset_dict_tokenized["test_chi2tru"])
-    print(pred_c2t)
+    print(pred_c2t[-1])
 if __name__ == "__main__":
     main()
