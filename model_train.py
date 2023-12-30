@@ -41,8 +41,8 @@ class Config:
     max_source_length: int = 128 # the maximum length in number of tokens for tokenizing the input sentence
     max_target_length: int = 128 # the maximum length in number of tokens for tokenizing the target sentence
 
-    lr: float = 0.0005
-    weight_decay: float = 0.01
+    lr: float = 0.0005  #learning rate
+    weight_decay: float = 0.01 # Weight decay (L2 penalty) is eight regularization to reduce the overfitting
     epochs: int = 20
     device: torch.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     # set random seed to ensure that results are reproducible
@@ -141,21 +141,19 @@ def main():
     #The training arguments for the training session
     args = Seq2SeqTrainingArguments(
         output_dir=output_dir,
-        evaluation_strategy="steps",
+        evaluation_strategy="steps", # the evaluation strategy to adopt during training.
         learning_rate=config.lr,
         per_device_train_batch_size=config.batch_size,
         per_device_eval_batch_size=config.batch_size,
-        weight_decay=config.weight_decay,
-        save_total_limit=2,
+        weight_decay=config.weight_decay, # Weight decay (L2 penalty) is the weight of regularization to reduce the overfitting
+        save_total_limit=2, # limit the total amount of saved checkpoints to 2 directories
         num_train_epochs=config.epochs,
-        predict_with_generate=True,
-        load_best_model_at_end=True,
+        predict_with_generate=True, # use model.generate()  to calculate generative metrics
+        load_best_model_at_end=True, # save the best model when finished training
         greater_is_better=False, #lower score better result of the main metric
-        metric_for_best_model="eval_loss", #the main metric in the training process
-        gradient_accumulation_steps=8,
-        do_train=do_train,
-        # https://discuss.huggingface.co/t/mixed-precision-for-bfloat16-pretrained-models/5315
-        fp16=False
+        metric_for_best_model="eval_loss", # the main metric in the training process
+        gradient_accumulation_steps=8, # Number of update steps to accumulate the gradients for, before performing a backward/update pass
+        do_train=do_train
     )
     # evalution metrics computation
     def compute_metrics(eval_pred):
