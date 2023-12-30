@@ -37,7 +37,6 @@ def DataTrainingArguments():
 class Config:
     lang: str = "tr_ch"
     batch_size: int = 16
-    num_workers: int = 4
     seed: int = 42
     max_source_length: int = 128 # the maximum length in number of tokens for tokenizing the input sentence
     max_target_length: int = 128 # the maximum length in number of tokens for tokenizing the target sentence
