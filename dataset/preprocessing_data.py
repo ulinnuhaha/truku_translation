@@ -8,13 +8,14 @@ def get_data(file,direct):
     df=df.rename(columns={"華語": "chinese", "太魯閣族語": "truku"}) #rename columns
     if direct== 'chi2tr': #create dataset where chinese as source language 
       df=df.rename(columns={"chinese": "source_lang", "truku": "target_lang"}) #rename columns
-    else: # #create dataset where truku as source language 
+    else:  #create dataset where truku as source language 
       df=df.rename(columns={"truku": "source_lang", "chinese": "target_lang"}) #rename columns
     df=df.dropna() #drop Nan Values
     return df[['source_lang','target_lang']]
 
 # Create bilingual dataset for translation
 def create_bitext_data(direct):
+    # read file names
     t1=get_data('其他來源',direct)
     t2=get_data('字根句型辭典',direct)
     t3=get_data('族語E樂園',direct)
@@ -25,7 +26,7 @@ def create_bitext_data(direct):
     else: # the translation direction of Truku to Chinese
         prefix = '將太魯閣族語成華語: '
         
-    data_all = train=pd.concat([t1,t2,t3,t4]) #group all dataset
+    data_all = pd.concat([t1,t2,t3,t4]) #group all dataset
     data_all['source_lang'] = prefix + data_all['source_lang'].astype(str) # Put the prefix in each sentence of source language
     data_all=data_all.drop_duplicates(subset=['target_lang']) #drop duplicate row
 
