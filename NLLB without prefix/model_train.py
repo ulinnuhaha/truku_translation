@@ -23,7 +23,7 @@ from transformers import (
 def DataTrainingArguments():
     parser = argparse.ArgumentParser()
     parser.add_argument('--model_checkpoint', 
-        type=str, required=True, help='Load a LLM as model checkpoint for translation')
+        type=str, required=True, help='Load a NLLB as model checkpoint for translation')
     parser.add_argument('--cache_dir', 
         type=str, required=True, help='Directory for saving the pre-trained translation model')
     parser.add_argument('--data_dir', 
