@@ -167,11 +167,11 @@ def main():
         eval_pred object would look like when implementing custom compute metrics function
         """
         predictions, labels = eval_pred
-        # Decode generated summaries, which is in ids into text
+        # Decode prediction samples, which is in ids into text
         decoded_preds = tokenizer.batch_decode(predictions, skip_special_tokens=True)
         # Replace -100 in the labels as we can't decode them
         labels = np.where(labels != -100, labels, tokenizer.pad_token_id)
-        # Decode labels, a.k.a. reference summaries into text
+        # Decode tokenized labels a.k.a. reference translation into text
         decoded_labels = tokenizer.batch_decode(labels, skip_special_tokens=True)
         result = rouge_score.compute(
             predictions=decoded_preds,
@@ -182,9 +182,9 @@ def main():
             predictions=decoded_preds,
             references=decoded_labels
         )
-        chrf=chrf_score.compute(predictions=decoded_preds, references=decoded_labels)
+        chrf=chrf_score.compute(predictions=decoded_preds, references=decoded_labels) ##The higher the value, the better the translations
         result["sacrebleu"] = score["score"] #The higher the value, the better the translations
-        result["chrf"] = chrf["score"]
+        result["chrf"] = chrf["score"] #The higher the value, the better the translations
         return {k: round(v, 4) for k, v in result.items()}
         
     # Data collator used for seq2seq model
