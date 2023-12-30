@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
-
+# import the libraries
 import os
 import torch
 import random
@@ -19,7 +19,7 @@ from transformers import (
     Seq2SeqTrainer,
     EarlyStoppingCallback
 )
-
+# use argparse to let the user provides values for variables at runtime
 def DataTrainingArguments():
     parser = argparse.ArgumentParser()
     parser.add_argument('--model_checkpoint', 
@@ -42,13 +42,14 @@ class Config:
     batch_size: int = 16
     num_workers: int = 4
     seed: int = 42
-    max_source_length: int = 128
-    max_target_length: int = 128
+    max_source_length: int = 128 # the maximum length in number of tokens for tokenizing the input sentence
+    max_target_length: int = 128 # the maximum length in number of tokens for tokenizing the target sentence
 
     lr: float = 0.0005
     weight_decay: float = 0.01
     epochs: int = 20
     device: torch.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    # set random seed to ensure that results are reproducible
     def __post_init__(self):
         random.seed(self.seed)
         np.random.seed(self.seed)
@@ -56,9 +57,9 @@ class Config:
         torch.cuda.manual_seed_all(self.seed)
 
 def main():
-    data_train_args=DataTrainingArguments()
+    data_train_args=DataTrainingArguments() #call the arguments
     config = Config()
-    #Load the dataset from tsv files
+    #Load the training dataset from tsv files
     data_file = {}
     data_file["train"] = data_train_args.train_file
     data_file["val"] = data_train_args.eval_file
@@ -76,7 +77,7 @@ def main():
     sacrebleu_score = evaluate.load("sacrebleu")
     chrf_score = evaluate.load("chrf")
     
-    # Load the tokenizer and model from pre-trained LLMs
+    # Load the tokenizer and the pre-trained mT5 model to perform fine-tuning translation
     tokenizer = AutoTokenizer.from_pretrained(data_train_args.model_checkpoint)
     model_name = data_train_args.model_checkpoint.split("/")[-1] #the name of pre-trained model
     
@@ -85,28 +86,30 @@ def main():
         f"{model_name}_{data_train_args.trans_direction}"
     )
     
-    if os.path.isdir(fine_tuned_model_checkpoint): #load the pre-trained translation model if available
+    if os.path.isdir(fine_tuned_model_checkpoint): #load the fine-tuned translation model if available
         do_train = False
         model = AutoModelForSeq2SeqLM.from_pretrained(fine_tuned_model_checkpoint, cache_dir=data_train_args.cache_dir)
-    else: #load the checkpoint model from LLMS as initial checkpoint for translation model
+    else: #load the checkpoint model from pre-trained mT5 model as initial checkpoint for translation model
         do_train = True
         model = AutoModelForSeq2SeqLM.from_pretrained(data_train_args.model_checkpoint, cache_dir=data_train_args.cache_dir)
     
     print("number of parameters:", model.num_parameters())
     def batch_tokenize_fn(examples):
         """
-        Generate the input_ids and labels field for dataset dict.
+        Generate the input_ids and labels field for dataset dict of training data.
         """
         sources = examples["source_lang"]
         targets = examples["target_lang"]
+        # tokenizing the input sentences
         model_inputs = tokenizer(sources, max_length=config.max_source_length, truncation=True)
     
-        # setup the tokenizer for targets,
+        # tokenizing the target sentences
         # tokenized ids of the target are stored as the labels field
         labels = tokenizer(targets, max_length=config.max_target_length, truncation=True)
         model_inputs["labels"] = labels["input_ids"]
         return model_inputs
         
+    #tokenizing the input and target sentences     
     dataset_dict_tokenized = dataset_dict.map(
         batch_tokenize_fn,
         batched=True,
@@ -137,9 +140,9 @@ def main():
     # evalution metrics computation
     def compute_metrics(eval_pred):
         """
-        Compute rouge and bleu metrics for seq2seq model generated prediction.
+        Compute rouge, chrF, and bleu metrics for seq2seq model generated prediction.
         
-        tip: we can run trainer.predict on our eval/test dataset to see what a sample
+        tip: we can run trainer.predict on our eval dataset to see what a sample
         eval_pred object would look like when implementing custom compute metrics function
         """
         predictions, labels = eval_pred
