@@ -56,7 +56,6 @@ def main():
     data_train_args=DataTrainingArguments() #call the arguments
     config = Config()
     #Load the training and validation dataset from tsv files
-    config = Config()
 
     def get_data(langs):
         data_file = {}
