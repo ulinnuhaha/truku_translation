@@ -37,7 +37,7 @@ class Config:
     device: torch.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 def main():
-    data_test_args=DataTestingArguments()
+    data_test_args=DataTestingArguments() #call the arguments
     config = Config()
     # Load the testing data from tsv files
     # Both Truku to Chinese data or Chinese to Truku data
