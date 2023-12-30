@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
-
+# import the libraries
 import os
 import torch
 import random
@@ -17,7 +17,7 @@ from transformers import (
     DataCollatorForSeq2Seq,
     Seq2SeqTrainer,
 )
-
+# use argparse to let the user provides values for variables at runtime
 def DataTestingArguments():
     parser = argparse.ArgumentParser()
     parser.add_argument('--model_name_or_path', 
@@ -32,14 +32,9 @@ def DataTestingArguments():
 class Config:
     lang: str = "tr_ch"
     seed: int = 42
-    max_source_length: int = 128
-    max_target_length: int = 128
+    max_source_length: int = 128 # the maximum length in number of tokens for tokenizing the input sentence
+    max_target_length: int = 128 # the maximum length in number of tokens for tokenizing the input sentence
     device: torch.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    def __post_init__(self):
-        random.seed(self.seed)
-        np.random.seed(self.seed)
-        torch.manual_seed(self.seed)
-        torch.cuda.manual_seed_all(self.seed)
 
 def main():
     data_test_args=DataTestingArguments()
@@ -64,14 +59,14 @@ def main():
     sacrebleu_score = evaluate.load("sacrebleu")
     chrf_score = evaluate.load("chrf")
     
-    # Load the tokenizer and model from pre-trained translation
-    
+    # load the fine-tuned translation model
     model_name = data_test_args.model_name_or_path 
         
-    if os.path.isdir(model_name): #load the pre-trained translation model if available
+    if os.path.isdir(model_name): #load the fine-tuned translation model if available
         model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
     else:
         print("pre-trained data not found")
+    # Load the tokenizer from the fine-tuned translation model
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     
     def fix_tokenizer(tokenizer, new_lang='tru_Latn'):
@@ -114,7 +109,7 @@ def main():
     
         model_inputs["labels"] = labels["input_ids"]
         return model_inputs
-        
+    #tokenizing the input and output sentence   
     dataset_dict_tokenized = dataset_dict.map(
         batch_tokenize_fn,
         batched=True,
