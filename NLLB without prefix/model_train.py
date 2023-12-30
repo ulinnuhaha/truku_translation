@@ -34,7 +34,7 @@ def DataTrainingArguments():
 #create the configuration class
 @dataclass
 class Config:
-    lang: str = "tr_ch_no_prefix"
+    lang: str = "tr_ch_no_prefix" # The languages in translation: Truku & traditional Chinese with no prefix in sentence input
     batch_size: int = 16
     seed: int = 42
     max_source_length: int = 128 # the maximum length in number of tokens for tokenizing the input sentence
