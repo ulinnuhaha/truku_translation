@@ -65,7 +65,7 @@ def main():
     if os.path.isdir(model_name): #load the fine-tuned translation model if available
         model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
     else:
-        print("pre-trained data not found")
+        print("the fine-tuned translation model is not found"")
     # Load the tokenizer from the fine-tuned translation model
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     
