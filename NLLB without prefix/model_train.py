@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
-
+# import the libraries
 import os
 import torch
 import random
@@ -19,7 +19,7 @@ from transformers import (
     Seq2SeqTrainer,
     EarlyStoppingCallback
 )
-
+# use argparse to let the user provides values for variables at runtime
 def DataTrainingArguments():
     parser = argparse.ArgumentParser()
     parser.add_argument('--model_checkpoint', 
@@ -38,14 +38,14 @@ class Config:
     batch_size: int = 16
     num_workers: int = 4
     seed: int = 42
-    max_source_length: int = 128
-    max_target_length: int = 128
+    max_source_length: int = 128 # the maximum length in number of tokens for tokenizing the input sentence
+    max_target_length: int = 128 # the maximum length in number of tokens for tokenizing the target sentence
 
     lr: float = 0.0005
     weight_decay: float = 0.01
     epochs: int = 20
     device: torch.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
+    # set random seed to ensure that results are reproducible
     def __post_init__(self):
         random.seed(self.seed)
         np.random.seed(self.seed)
@@ -53,10 +53,10 @@ class Config:
         torch.cuda.manual_seed_all(self.seed)
 
 def main():
-    data_train_args=DataTrainingArguments()
+    data_train_args=DataTrainingArguments() #call the arguments
     config = Config()
-    #Load the dataset from tsv files
-    onfig = Config()
+    #Load the training and validation dataset from tsv files
+    config = Config()
 
     def get_data(langs):
         data_file = {}
@@ -70,7 +70,9 @@ def main():
             #column_names=["source_lang", "target_lang"],
             data_files=data_file)
         return dataset_dict
+    # load the dataset of sentence pair of (Truku→Chinese)
     dataset_dict_tc=get_data('tc')
+    # load the dataset of sentence pair of (Chinese→Truku)
     dataset_dict_ct=get_data('ct')
     print(dataset_dict_tc)
   
@@ -80,7 +82,7 @@ def main():
     sacrebleu_score = evaluate.load("sacrebleu")
     chrf_score = evaluate.load("chrf")
     
-    # Load the tokenizer and model from pre-trained LLMs
+    # Load the tokenizer from pre-trained model to perform fine-tuning translation
     tokenizer = NllbTokenizer.from_pretrained(data_train_args.model_checkpoint)
     
     def fix_tokenizer(tokenizer, new_lang='tru_Latn'):
@@ -103,52 +105,48 @@ def main():
         # This is only performed when we already expanded the tokenizer of the NLLB model
         print("fix the tokenizer configuration")
         fix_tokenizer(tokenizer)
-
+    # Load the initial model checkpoint from the pre-trained model to perform fine-tuning translation
     model_name = data_train_args.model_checkpoint.split("/")[-1] #the name of pre-trained model
-    
+    # The directory of the fine-tuned translation model
     fine_tuned_model_checkpoint = os.path.join(
         data_train_args.cache_dir,
         f"{model_name}_{config.lang}"
     )
     
-    if os.path.isdir(fine_tuned_model_checkpoint): #load the pre-trained translation model if available
+    if os.path.isdir(fine_tuned_model_checkpoint): #load the fine-tuned translation model if available
         do_train = False
         model = AutoModelForSeq2SeqLM.from_pretrained(fine_tuned_model_checkpoint, cache_dir=data_train_args.cache_dir)
-    else: #load the checkpoint model from LLMS as initial checkpoint for translation model
+    else: load the checkpoint model from NLLB as initial checkpoint for fine-tuning translation model
         do_train = True
         model = AutoModelForSeq2SeqLM.from_pretrained(data_train_args.model_checkpoint, cache_dir=data_train_args.cache_dir)
     
     print("number of parameters:", model.num_parameters())
     def batch_tokenize_fn(examples):
         """
-        Generate the input_ids and labels field for huggingface dataset/dataset dict.
-    
-        Truncation is enabled where we cap the sentence to the max length. Padding will be done later
-        in a data collator, so we pad examples to the longest length within a mini-batch and not
-        the whole dataset.
+        Generate the input_ids and labels field for dataset dict of training data.
         """
-        #set the language source and targer
-        src = (list(examples.keys()))[0]
-        tgt = (list(examples.keys()))[1]
-        sources = examples[src]
-        targets = examples[tgt]
+        #set source (input) and target Languages
+        src = (list(examples.keys()))[0] # get the language of source (input)
+        tgt = (list(examples.keys()))[1] # get the language of target (output)
+        sources = examples[src] # get the input samples
+        targets = examples[tgt] # get the target samples
             
-        src = 'tru_Latn' if src == 'truku' else 'zho_Hant'
-        tgt = 'tru_Latn' if tgt == 'truku' else 'zho_Hant'
+        src = 'tru_Latn' if src == 'truku' else 'zho_Hant' # set the language tag of of source (input)
+        tgt = 'tru_Latn' if tgt == 'truku' else 'zho_Hant' # set the language tag of of target (output)
         
-        tokenizer.src_lang = src
+        # tokenizing the input sentences
+        tokenizer.src_lang = src #The language to use as source language for translation
         model_inputs = tokenizer(sources, max_length=config.max_source_length, truncation=True)
     
-        # setup the tokenizer for targets,
-        # huggingface expects the target tokenized ids to be stored in the labels field
-      
-        tokenizer.src_lang = tgt
+        # tokenizing the target sentences
+        # tokenized ids of the target are stored as the labels field
+        tokenizer.src_lang = tgt #The language to use as target language for translation
         labels = tokenizer(targets, max_length=config.max_target_length, truncation=True)
     
         model_inputs["labels"] = labels["input_ids"]
         return model_inputs
         
-    #tokenize truku and chinese dataset
+    # Tokenizing sentence pair of Truku and Chinese dataset
     tc_dataset_dict_tokenized = dataset_dict_tc.map(
         batch_tokenize_fn,
         batched=True,
@@ -157,11 +155,11 @@ def main():
         batch_tokenize_fn,
         batched=True,
         remove_columns=dataset_dict_ct["train"].column_names)
-    #concatenate all dataset
+    #concatenate all tokenized datasets
     dtc=tc_dataset_dict_tokenized
     dct=ct_dataset_dict_tokenized
     all_data=DatasetDict({"train": concatenate_datasets([dtc["train"], dct["train"]]),"val": concatenate_datasets([dtc["val"], dct["val"]])})
-    all_data_tokenized=all_data.shuffle(seed=42)
+    all_data_tokenized=all_data.shuffle(seed=42) #shuffle all training dataset
     print(all_data_tokenized["train"][278])
     
     output_dir = os.path.join(data_train_args.cache_dir, f"{model_name}_{config.lang}") # where the pre-trained translation model is saved
@@ -179,7 +177,7 @@ def main():
         predict_with_generate=True,
         load_best_model_at_end=True,
         greater_is_better=False, #lower score better result of the main metric
-        metric_for_best_model="eval_loss", #set metrics as the main parameter
+        metric_for_best_model="eval_loss", #the main metric in the training process
         gradient_accumulation_steps=8,
         do_train=do_train,
         # https://discuss.huggingface.co/t/mixed-precision-for-bfloat16-pretrained-models/5315
@@ -188,17 +186,17 @@ def main():
     # evalution metrics computation
     def compute_metrics(eval_pred):
         """
-        Compute rouge and bleu metrics for seq2seq model generated prediction.
+        Compute rouge, BERTscore, chrF, and bleu metrics for seq2seq model generated prediction.
         
-        tip: we can run trainer.predict on our eval/test dataset to see what a sample
+        tip: we can run trainer.predict on our eval dataset to see what a sample
         eval_pred object would look like when implementing custom compute metrics function
         """
         predictions, labels = eval_pred
-        # Decode generated summaries, which is in ids into text
+        # Decode prediction samples, which is in ids into text
         decoded_preds = tokenizer.batch_decode(predictions, skip_special_tokens=True)
         # Replace -100 in the labels as we can't decode them
         labels = np.where(labels != -100, labels, tokenizer.pad_token_id)
-        # Decode labels, a.k.a. reference summaries into text
+        # Decode tokenized labels a.k.a. reference translation into text
         decoded_labels = tokenizer.batch_decode(labels, skip_special_tokens=True)
         result = rouge_score.compute(
             predictions=decoded_preds,
@@ -209,9 +207,9 @@ def main():
             predictions=decoded_preds,
             references=decoded_labels
         )
-        chrf=chrf_score.compute(predictions=decoded_preds, references=decoded_labels)
+        chrf=chrf_score.compute(predictions=decoded_preds, references=decoded_labels) ##The higher the value, the better the translations
         result["sacrebleu"] = score["score"] #The higher the value, the better the translations
-        result["chrf"] = chrf["score"]
+        result["chrf"] = chrf["score"] #The higher the value, the better the translations
         return {k: round(v, 4) for k, v in result.items()}
         
     # Data collator used for seq2seq model
