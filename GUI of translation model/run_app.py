@@ -11,7 +11,7 @@ def translate_wrapper(dir, text_input, by_sentence=True, preprocess=True, random
     result = translator.translate(
         text=text_input, # input sentence for translation
         direction=direction, 
-        do_sample=random, #parameter to enable decoding strategies
+        do_sample=random, #parameter to enable decoding strategies in model.generate()
         num_beams=int(num_beams), #Number of beams for beam search in model.generate()
         by_sentence=by_sentence, #True or false
         preprocess=preprocess, # Whether performing the preprocessing stage for the input sentence or not
