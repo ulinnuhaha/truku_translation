@@ -29,7 +29,7 @@ This fine-tuing  process uses an adding prefix scheme in the input sentence as w
 To perform the testing process of the translation model, we carry out the bilingual translation of both Truku➝Chinese and Chinese➝Truku with some evaluation metrics. You can run the `model_test.py` script by loading the fine-tuned models in the `pretrained_model` directory as the following command:
 ```bash
 python model_test.py \
-  --model_name_or_path ./pretrained_model/nllb_tr_ch \
+  --model_name_or_path ./pretrained_model/nllb-200-distilled-600M_tr_ch \
   --data_dir ./dataset
 ```
 We take different evaluation metrics in the testing stage. For Truku➝Chinese translation, we exploit:
