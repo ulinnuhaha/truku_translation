@@ -42,7 +42,7 @@ While, for Chinese➝Truku translation, we exploit:
 * BERTScore
 * Rouge-1
 ## Fine-tune the NLLB model for bilingual translation scheme without prefixes in the input sentence
-All the models in this directory perform the translation scheme using prefixes such as `將華語成太魯閣族語: ` in the input sentence, including the NLLB model. 
+All the fine-tuning processes in this directory build the translation model using prefixes such as `將華語成太魯閣族語: ` in the input sentence, including the NLLB model. 
 Thus, if you want to fine-tune the NLLB model with a scheme that does not put prefixes in the input sentence, you can go to the directory of `NLLB without prefix`. This directory still also performs the bidirectional translation model between Truku and Traditional Chinese languages (Truku ↔ Chinese)
 
 ## Run the simple translation model inference
