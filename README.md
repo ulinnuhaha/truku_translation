@@ -20,7 +20,7 @@ After saving the expanded tokenizer and model in the `pretrained_model` director
 To perform the fine-tuning process of LLMs to create the translation model between Truku and Traditional Chinese languages, you can run the `model_train.py` script as the following command:
 ```bashmodel_train
 python model_train.py \
-  --model_checkpoint facebook/mbart-large-50 \
+  --model_checkpoint facebook/nllb-200-distilled-600M \
   --cache_dir ./pretrained_model \
   --data_dir ./dataset
 ```
