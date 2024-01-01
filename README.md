@@ -10,7 +10,7 @@ pip install -r requirements.txt
 ```
 For the one-directional translation model (Truku➝ Chinese or Chinese➝Truku), please go to the `1-directional translation` directory.
 ## Upgrade of NLLB model by expanding the tokenizer vocab
-If you want to upgrade the NLLB model by expanding the tokenizer vocabs from the language such as Traditional Chinese Language, You can run:
+If you want to upgrade the NLLB model by expanding the tokenizer vocabs from a language such as Traditional Chinese Language, You can run:
 ```
 upgrade_nllb_tokenizer.ipynb
 ```
