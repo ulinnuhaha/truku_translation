@@ -4,12 +4,11 @@ This is a repository for a bidirectional translation model between Truku and Tra
 * NLLB-200's distilled 600M (`facebook/nllb-200-distilled-600M`)
 * mBART-50 (`facebook/mbart-large-50`)
 
-For the one-directional translation model (Truku➝ Chinese or Chinese➝Truku), please go to the `1-directional translation` directory.
-
-Please install the required packages by:
+Please first install the required packages by:
 ```
 pip install -r requirements.txt
 ```
+For the one-directional translation model (Truku➝ Chinese or Chinese➝Truku), please go to the `1-directional translation` directory.
 ## Upgrade of NLLB model by expanding the tokenizer vocab
 If you want to upgrade the NLLB model by expanding the tokenizer vocabs from the language such as Traditional Chinese Language, You can run:
 ```
