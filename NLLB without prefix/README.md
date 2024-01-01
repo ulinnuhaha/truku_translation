@@ -1,8 +1,8 @@
 ## Run the pre-preprocessing stage to create pre-processed data
-Before we perform the fine-tuning scheme of the NLLB model without prefixes in the input sentence, we need to prepare training, evaluation, and testing data. To implement the preprocessing step, you can run the `data_no_prefix.py` script.
+Before we perform the fine-tuning scheme of the NLLB model without prefixes in the input sentence, we need to prepare training, evaluation, and testing data. To implement these data, you can run the `data_no_prefix.py` script.
 
 ## Run the training model to fine-tune NLLB for bilingual translation
-To perform the fine-tuning process of NLLB to create the translation model between Truku and Traditional Chinese languages, you can run the `model_train.py` script as the following command:
+To perform the fine-tuning process of the NLLB model to create the translation model between Truku and Traditional Chinese languages, you can run the `model_train.py` script as the following command:
 ```bashmodel_train
 python model_train.py \
   --model_checkpoint pretrained_model/nllb_expanded \
