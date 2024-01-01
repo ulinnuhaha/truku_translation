@@ -1,7 +1,7 @@
 # Run the GUI of the translation model
 This is a repository for creating the GUI of the translation model between Truku and Chinese languages (Truku ↔ Chinese).
-We use the Gradio to build simple inference of the translation model in GUI form. 
-Please first install the required packages by:
+We use Gradio to build a simple inference of the translation model in GUI form. 
+Please make sure that you already installed the required packages by:
 ```
 pip install -r requirement.txt
 ```
