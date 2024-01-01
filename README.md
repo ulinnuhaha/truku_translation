@@ -50,4 +50,4 @@ To perform the translation model with a specific pre-trained model, you can run 
 ```bash
 python run_trans.py --model_name_or_path ./pretrained_model/nllb_tr_ch
 ```
-* Before running the script, please make sure that the model in `pretrained_model` path is already available or please first running `model_train.py`
+* Before running the script, please make sure that the model in `pretrained_model` path is already available. If it is not available, please first run `model_train.py`
