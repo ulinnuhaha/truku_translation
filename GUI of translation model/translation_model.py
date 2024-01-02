@@ -1,19 +1,22 @@
+# import the libraries
 import re
 import sys
 import typing as tp
 import unicodedata
-
 import torch
 from sacremoses import MosesPunctNormalizer
 from transformers import AutoModelForSeq2SeqLM, NllbTokenizer
 
+#the address of the fine-tuned translation model
 MODEL_URL = "./pretrained_model/nllb_expanded_tr_ch"
 
+# The prefix scheme in the input sentence for each translation direction
 DIRECTION = {
     "Truku to Traditional Chinese": "將太魯閣族語成華語: ",
     "Traditional Chinese to Truku": "將華語成太魯閣族語: ",
 }
 
+# replace non printable characters
 def get_non_printing_char_replacer(replace_by: str = " ") -> tp.Callable[[str], str]:
     non_printable_map = {
         ord(c): replace_by
@@ -28,7 +31,7 @@ def get_non_printing_char_replacer(replace_by: str = " ") -> tp.Callable[[str], 
 
     return replace_non_printing_char
 
-
+# A class for pre-processing input texts
 class TextPreprocessor:
     """
     Mimic the text preprocessing made for the NLLB model.
@@ -44,13 +47,13 @@ class TextPreprocessor:
         self.replace_nonprint = get_non_printing_char_replacer(" ")
 
     def __call__(self, text: str) -> str:
-        clean = self.mpn.normalize(text)
-        clean = self.replace_nonprint(clean)
+        clean = self.mpn.normalize(text) #normalize the punctuation
+        clean = self.replace_nonprint(clean) # replace non printable characters
         # replace 𝓕𝔯𝔞𝔫𝔠𝔢𝔰𝔠𝔞 by Francesca
-        clean = unicodedata.normalize("NFKC", clean)
+        clean = unicodedata.normalize("NFKC", clean) # Return the normal form for the Unicode string. NFKC = Normalization Form Compatibility Composition
         return clean
 
-
+# 
 def sentenize_with_fillers(text, fix_double_space=True, ignore_errors=False):
     """Apply a sentence splitter and return the sentences and all separators before and after them"""
     if fix_double_space:
@@ -73,7 +76,7 @@ def sentenize_with_fillers(text, fix_double_space=True, ignore_errors=False):
 class Translator:
     def __init__(self):
         self.model = AutoModelForSeq2SeqLM.from_pretrained(MODEL_URL)
-        if torch.cuda.is_available():
+        if .cuda.is_available():
             self.model.cuda()
         self.tokenizer = NllbTokenizer.from_pretrained(MODEL_URL)
         self.preprocessor = TextPreprocessor()
