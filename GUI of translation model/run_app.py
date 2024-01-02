@@ -29,7 +29,7 @@ interface = gr.Interface(
     [
         gr.Dropdown(DIRECTION_LIST, type="value", label='Translation direction', value=DIRECTION_LIST), # Dropdown menu for translation direction
         gr.Textbox(label="Input Text", lines=2, placeholder='text to translate '), # Textbox for the input sentence
-        gr.Checkbox(label="by sentence", value=True), # Checkbox whether to process the input text by splitting the sentence into some array or not 
+        gr.Checkbox(label="by sentence", value=True), # Checkbox whether to process the input text by splitting the sentences into some arrays or not 
     ],
     "text", # the data type for the outputs
     title='Truku-Chinese translation', # a title for the interface
