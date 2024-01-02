@@ -16,7 +16,7 @@ DIRECTION = {
     "Traditional Chinese to Truku": "將華語成太魯閣族語: ",
 }
 
-# replace non printable characters
+# replace non-printable characters
 def get_non_printing_char_replacer(replace_by: str = " ") -> tp.Callable[[str], str]:
     non_printable_map = {
         ord(c): replace_by
@@ -53,14 +53,15 @@ class TextPreprocessor:
         clean = unicodedata.normalize("NFKC", clean) # Return the normal form for the Unicode string. NFKC = Normalization Form Compatibility Composition
         return clean
 
-# 
+# Split each sentence in the input texts in conjunction with getting the dividing mark
 def sentenize_with_fillers(text, fix_double_space=True, ignore_errors=False):
     """Apply a sentence splitter and return the sentences and all separators before and after them"""
     if fix_double_space:
-        text = re.sub(" +", " ", text)
-    sentences = re.findall(r"[^.!?]+", text)
+        text = re.sub(" +", " ", text) # remove double space
+    sentences = re.findall(r"[^.!?]+", text) # split the sentence sentence with the punctuation as the splitter
     fillers = []
     i = 0
+    # Get the splitter or filler among the sentences
     for sentence in sentences:
         start_idx = text.find(sentence, i)
         if ignore_errors and start_idx == -1:
@@ -72,28 +73,28 @@ def sentenize_with_fillers(text, fix_double_space=True, ignore_errors=False):
     fillers.append(text[i:])
     return sentences, fillers
 
-
+# A class for the main translation process
 class Translator:
     def __init__(self):
-        self.model = AutoModelForSeq2SeqLM.from_pretrained(MODEL_URL)
+        self.model = AutoModelForSeq2SeqLM.from_pretrained(MODEL_URL) # get the translation model
         if .cuda.is_available():
             self.model.cuda()
-        self.tokenizer = NllbTokenizer.from_pretrained(MODEL_URL)
-        self.preprocessor = TextPreprocessor()
+        self.tokenizer = NllbTokenizer.from_pretrained(MODEL_URL) # get the tokenizer
+        self.preprocessor = TextPreprocessor() 
 
-
+    # the method for translation
     def translate(
         self,
-        text,
-        direction,
-        max_length="auto",
-        num_beams=4,
-        by_sentence=True,
-        preprocess=True,
-        **kwargs,
+        text, # input sentence
+        direction, # the translation direction
+        max_length="auto", # the maximum length of the tokenized input
+        num_beams=4, #Number of beams for beam search in model.generate()
+        by_sentence=True, # splitting the sentences into some arrays
+        preprocess=True, #  perform preprocessing for the input sentence or not
+        **kwargs, # others arguments in the generating output text
     ):
         """Translate a text sentence by sentence, preserving the fillers around the sentences."""
-        if by_sentence:
+        if by_sentence: # if True for splitting the sentences into some arrays
             sents, fillers = sentenize_with_fillers(
                 text, ignore_errors=True
             )
@@ -101,14 +102,14 @@ class Translator:
             sents = [text]
             fillers = ["", ""]
         #process “unknown symbol” and non-standard punctuation marks
-        if preprocess:
+        if preprocess: # if True for performing preprocessing for the input sentence
             sents = [self.preprocessor(sent) for sent in sents]
         results = []
         for sent, sep in zip(sents, fillers):
             results.append(sep)
             results.append(
                 self.translate_single(
-                    direction+sent,
+                    direction+sent, # given a prefix based on the translation direction for the input sentence
                     max_length=max_length,
                     num_beams=num_beams,
                     **kwargs,
@@ -125,13 +126,14 @@ class Translator:
         n_out=None,
         **kwargs,
     ):
-        #self.tokenizer.src_lang = src_lang
-
+        # Tokenzing the input sentences
         encoded = self.tokenizer(
             text, return_tensors="pt", truncation=True, max_length=512
         )
         if max_length == "auto":
             max_length = int(32 + 2.0 * encoded.input_ids.shape[1])
+            
+        # Generating the output text of the translation
         generated_tokens = self.model.generate(
             **encoded.to(self.model.device),
             #forced_bos_token_id=self.tokenizer.lang_code_to_id[tgt_lang],
