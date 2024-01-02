@@ -31,7 +31,7 @@ interface = gr.Interface(
         gr.Textbox(label="Input Text", lines=2, placeholder='text to translate '), # Textbox for the input sentence
         gr.Checkbox(label="by sentence", value=True), # Checkbox whether to process the input text by splitting the sentence into some array or not 
     ],
-    "text",
+    "text", # the data type for the outputs
     title='Truku-Chinese translation', # a title for the interface
     article=note, # An expanded article explaining the interface; if provided, appears below the input and output components
 )
