@@ -92,12 +92,13 @@ def main():
         # clear the added token encoder; otherwise a new token may end up there by mistake
         tokenizer.added_tokens_encoder = {}
         tokenizer.added_tokens_decoder = {}
+        return tokenizer
 
     if len(tokenizer) != tokenizer.vocab_size: #Check whether the values between len(tokenizer) and tokenizer.vocab_size are same after we added Truku language tag
         # This is only performed when we already expanded the tokenizer of the NLLB model
         print("fix the tokenizer configuration")
         tokenizer = NllbTokenizer.from_pretrained(data_train_args.model_checkpoint)
-        fix_tokenizer(tokenizer)
+        tokenizer=fix_tokenizer(tokenizer)
         
     # Load the initial model checkpoint from the pre-trained model to perform fine-tuning translation
     model_name = data_train_args.model_checkpoint.split("/")[-1] #the name of pre-trained model
