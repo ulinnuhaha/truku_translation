@@ -89,7 +89,7 @@ def main():
         # This is only performed when we already expanded the tokenizer of the NLLB model
         print("fix the tokenizer configuration")
         tokenizer = NllbTokenizer.from_pretrained(data_train_args.model_checkpoint)
-        tokenizer=fix_tokenizer(tokenizer)
+        fix_tokenizer(tokenizer)
         
     print("number of parameters:", model.num_parameters())
     def batch_tokenize_fn(examples):
